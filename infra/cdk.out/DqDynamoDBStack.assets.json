@@ -1,0 +1,21 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "6d6978816dd613603a1cee9ee418d7309e0e38fade1929ff4c8901597c4dd8c3": {
+      "displayName": "DqDynamoDBStack Template",
+      "source": {
+        "path": "DqDynamoDBStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-63cead4f": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "6d6978816dd613603a1cee9ee418d7309e0e38fade1929ff4c8901597c4dd8c3.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,1641 @@
+{
+  "/DqApiGatewayStack": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/ApiEndpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiEndpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/ApiId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiA21983F4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/ApiGatewayUrlParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiGatewayUrlParam61D64558"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/DefaultStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiDefaultStageDDCEE24E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog/CatalogIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogCatalogIntegrationPermission53CD04CC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalog2A9E84BC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/DqJwtAuthorizer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}/CatalogIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogidCatalogIntegrationPermission9871AD0E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogid49CEA71D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/TableIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogidtablesTableIntegrationPermission16614507"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogidtables0DBD7131"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables/TableIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesTableIntegrationPermissionACEF45A6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtables378516D9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}/TableIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidTableIntegrationPermission1595A86D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidD42FCAF0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/FieldIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidfieldsFieldIntegrationPermissionA8CA9AFF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidfields35546185"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields--{fid}/FieldIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidfieldsfidFieldIntegrationPermission52805804"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields--{fid}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidfieldsfidFE786A0A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/UploadIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogiduploadUploadIntegrationPermission14D483AB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogidupload7675826B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--complete/UploadIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYuploaduploadIdcompleteUploadIntegrationPermissionFEDB3ECD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--complete/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYuploaduploadIdcompleteE2064164"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--abort/UploadIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYuploaduploadIdabortUploadIntegrationPermissionBC9AB81F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--abort/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYuploaduploadIdabort673B4F18"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--dataset--{id}--preview/UploadIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYdatasetidpreviewUploadIntegrationPermission1B114471"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--dataset--{id}--preview/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYdatasetidpreviewC9EB9210"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--audit/AuditIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYauditAuditIntegrationPermission3E1DC9B5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--audit/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYauditEDB93723"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--templates/TemplateIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtemplatesTemplateIntegrationPermission6CFCAC67"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--templates/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtemplates76C693AD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--templates--{id}/TemplateIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtemplatesidTemplateIntegrationPermissionFF662D8B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--templates--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtemplatesid4CF8C793"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/RuleInterpreterIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesinterpretRuleInterpreterIntegrationPermission005CA7BF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesinterpret6F7F07FF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/ConflictDetectorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesconflictsConflictDetectorIntegrationPermission4FB035E8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesconflicts9D214C2F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--conflicts--{id}--resolve/ConflictDetectorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesconflictsidresolveConflictDetectorIntegrationPermissionC7B81DB1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--conflicts--{id}--resolve/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesconflictsidresolveADDC08E9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/CodeGeneratorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesidgeneratecodeCodeGeneratorIntegrationPermission5D6A9BB6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesidgeneratecode4B87A69B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules/RulesIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesRulesIntegrationPermissionB46C99A2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrules07095480"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules--{id}/RulesIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesidRulesIntegrationPermission5C37C301"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesidB4724264"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/ValidationMetricsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsmetricsValidationMetricsIntegrationPermission980CF1B5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsmetrics40801D57"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/ValidationResultsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationPermission72D5C3B7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsidresults3F63406B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--validations/ValidationOrchestratorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTvalidationsValidationOrchestratorIntegrationPermission73A29DA3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--validations/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTvalidations8F2C0328"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations/ValidationResultsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsValidationResultsIntegrationPermission26F6884D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidations2BCC47B8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--{id}/ValidationResultsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsidValidationResultsIntegrationPermission1EDFA698"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsidB207C597"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/AnomalyTrainingIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliestrainingAnomalyTrainingIntegrationPermissionA83DD8E4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliestrainingB87E4750"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/AnomalyStatusIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliestrainingidAnomalyStatusIntegrationPermission21712DD3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliestrainingidA982856A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/AnomalyScoringIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegrationPermission7C39E89A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliesscoring8E73A7C2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}/AnomalyScoringIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesscoringidAnomalyScoringIntegrationPermissionE7E719FA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesscoringid63184552"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/AnomalyExportIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesscoringidexportAnomalyExportIntegrationPermissionAC3ECFF2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesscoringidexportD247C4C6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--dashboard--{datasetId}/AnomalyScoringIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesdashboarddatasetIdAnomalyScoringIntegrationPermissionAB1CB4E6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--dashboard--{datasetId}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesdashboarddatasetId82076550"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/CleaningOrchestratorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationPermission90047D8E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTcleaninggenerate52481445"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--cleaning--{id}--execute/CleaningOrchestratorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTcleaningidexecuteCleaningOrchestratorIntegrationPermissionAA989F32"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--cleaning--{id}--execute/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTcleaningidexecute449F9D6E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/CleaningStatusIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETcleaningidCleaningStatusIntegrationPermissionC3C773FA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETcleaningidF58CD7AF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--generate/ReportGeneratorIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsgenerateReportGeneratorIntegrationPermission36C139F3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--generate/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsgenerate59F662C2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/ReportsCrudIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegrationPermissionD07440FD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsidpublish7B70B788"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports--{id}--versions/ReportsCrudIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsidversionsReportsCrudIntegrationPermissionDCB5D7AE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports--{id}--versions/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsidversionsE0DCFC15"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports/ReportsCrudIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsReportsCrudIntegrationPermissionAA8B5F61"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsD52C3D9E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports--{id}/ReportsCrudIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsidReportsCrudIntegrationPermission93336072"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--reports--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETreportsidCDA170C9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/PUT--reports--{id}/ReportsCrudIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPUTreportsidReportsCrudIntegrationPermissionB1D5F046"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/PUT--reports--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPUTreportsid4CFE5876"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--notifications/NotificationsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETnotificationsNotificationsIntegrationPermissionA9C4F2D5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--notifications/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETnotifications190AE663"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--notifications--recipients/NotificationsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTnotificationsrecipientsNotificationsIntegrationPermission232423ED"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--notifications--recipients/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTnotificationsrecipientsFCFBE160"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--notifications--recipients/NotificationsIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETnotificationsrecipientsNotificationsIntegrationPermissionDD9D493A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--notifications--recipients/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETnotificationsrecipients25488AC6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog/CatalogIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogCatalogIntegrationA6917D77"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/TableIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogidtablesTableIntegrationF26BF13F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/FieldIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtablesidfieldsFieldIntegrationE3D47279"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/UploadIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--audit/AuditIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYauditAuditIntegration0CFC78FE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--templates/TemplateIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYtemplatesTemplateIntegration3040196A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/RuleInterpreterIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesinterpretRuleInterpreterIntegrationBB4D9104"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/ConflictDetectorIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesconflictsConflictDetectorIntegration4440CB3C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/CodeGeneratorIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTrulesidgeneratecodeCodeGeneratorIntegration949B208B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/ANY--rules/RulesIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiANYrulesRulesIntegration76B1CAC8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/ValidationMetricsIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsmetricsValidationMetricsIntegrationF5E07B60"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/ValidationResultsIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationDA08F745"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--validations/ValidationOrchestratorIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTvalidationsValidationOrchestratorIntegration1D928865"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/AnomalyTrainingIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliestrainingAnomalyTrainingIntegrationCADD3D09"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/AnomalyStatusIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliestrainingidAnomalyStatusIntegration72484E2B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/AnomalyScoringIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegration5A076E0B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/AnomalyExportIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETanomaliesscoringidexportAnomalyExportIntegrationF496137B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/CleaningOrchestratorIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationFE785F20"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/CleaningStatusIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETcleaningidCleaningStatusIntegration6DAB4EA0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--generate/ReportGeneratorIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsgenerateReportGeneratorIntegration70ACF78E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/ReportsCrudIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/DqApiGatewayStack/DqPlatformApi/GET--notifications/NotificationsIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqPlatformApiGETnotificationsNotificationsIntegration6BF13CAE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\ELVIA\\AppData\\Local\\Temp\\jsii-kernel-SNuHAl\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ]
+}

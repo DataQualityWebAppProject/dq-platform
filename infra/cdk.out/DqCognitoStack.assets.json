@@ -1,0 +1,21 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "9ade093348bc0250c54b7144bb9c34fa4592d935fe8e4bfe631edbe914907623": {
+      "displayName": "DqCognitoStack Template",
+      "source": {
+        "path": "DqCognitoStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-4b64725a": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "9ade093348bc0250c54b7144bb9c34fa4592d935fe8e4bfe631edbe914907623.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

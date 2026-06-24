@@ -1,0 +1,36 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf": {
+      "displayName": "DqCatalogCrud/Code",
+      "source": {
+        "path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "108782054634-us-east-1-6815c896": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    },
+    "f0f9b284b738150e2b9b631eb70b828431389415fc10047875bf1678ffc0cc68": {
+      "displayName": "DqLambdaStack Template",
+      "source": {
+        "path": "DqLambdaStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-d7952559": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "f0f9b284b738150e2b9b631eb70b828431389415fc10047875bf1678ffc0cc68.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

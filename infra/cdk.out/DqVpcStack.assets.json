@@ -1,0 +1,21 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "f55ee9bb5312bef261bb5af823f1f94bbdbb83d4076a4e704cd166378fb15434": {
+      "displayName": "DqVpcStack Template",
+      "source": {
+        "path": "DqVpcStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-fef0e300": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "f55ee9bb5312bef261bb5af823f1f94bbdbb83d4076a4e704cd166378fb15434.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

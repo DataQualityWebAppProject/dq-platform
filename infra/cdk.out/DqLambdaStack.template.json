@@ -1,0 +1,1217 @@
+{
+ "Parameters": {
+  "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/dq-platform/iam-lambda-role-arn"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "DqCatalogCrudA115E990": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-catalog-crud",
+    "Handler": "services.governance.handlers.catalog.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqCatalogCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqTableCrud672E4694": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-table-crud",
+    "Handler": "services.governance.handlers.tables.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqTableCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqFieldCrud1720E869": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-field-crud",
+    "Handler": "services.governance.handlers.fields.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqFieldCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqUploadHandler0C4445F7": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-upload-handler",
+    "Handler": "services.governance.handlers.upload.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqUploadHandler/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqAuditHandler79B0599E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-audit-handler",
+    "Handler": "services.governance.handlers.audit.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqAuditHandler/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqTemplateCrud0D09D1D8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-template-crud",
+    "Handler": "services.governance.handlers.templates.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqTemplateCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqRulesCrud7DF01E39": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-rules-crud",
+    "Handler": "services.rules.handlers.rules.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqRulesCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqRuleInterpreter9A2D0972": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-rule-interpreter",
+    "Handler": "services.rules.handlers.interpreter.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqRuleInterpreter/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqConflictDetectorDDD98868": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-conflict-detector",
+    "Handler": "services.rules.handlers.conflicts.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqConflictDetector/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqCodeGeneratorA05F2E24": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-code-generator",
+    "Handler": "services.rules.handlers.codegen.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 120
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqCodeGenerator/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqValidationOrchestratorD5180FA8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-validation-orchestrator",
+    "Handler": "services.validation.handlers.orchestrator.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqValidationOrchestrator/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqValidationResultsAE216ABE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-validation-results",
+    "Handler": "services.validation.handlers.results.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqValidationResults/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqValidationMetrics3388CF40": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-validation-metrics",
+    "Handler": "services.validation.handlers.metrics.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqValidationMetrics/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqAnomalyTrainingD58E4793": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-anomaly-training",
+    "Handler": "services.anomalies.handlers.training.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqAnomalyTraining/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqAnomalyScoringE80C060C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-anomaly-scoring",
+    "Handler": "services.anomalies.handlers.scoring.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 300
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqAnomalyScoring/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqAnomalyExportF3D62455": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-anomaly-export",
+    "Handler": "services.anomalies.handlers.export.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqAnomalyExport/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqAnomalyStatus05570349": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-anomaly-status",
+    "Handler": "services.anomalies.handlers.status.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqAnomalyStatus/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqCleaningOrchestratorEE2D6F5B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-cleaning-orchestrator",
+    "Handler": "services.cleaning.handlers.orchestrator.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqCleaningOrchestrator/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqCleaningStatus0BCC693D": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-cleaning-status",
+    "Handler": "services.cleaning.handlers.status.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqCleaningStatus/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqReportGenerator90455CAB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-report-generator",
+    "Handler": "services.reporting.handlers.generator.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 60
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqReportGenerator/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqReportsCrud62DEE900": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-reports-crud",
+    "Handler": "services.reporting.handlers.reports.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqReportsCrud/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DqNotifications9A10A5CF": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "CATALOG_TABLE_NAME": "dq-catalogs",
+      "TEMPLATES_TABLE_NAME": "dq-templates",
+      "AUDIT_TABLE_NAME": "dq-audit-trail",
+      "S3_RAW_BUCKET": "dq-raw-108782054634",
+      "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
+      "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+      "AWS_REGION_NAME": "us-east-1",
+      "RULES_TABLE_NAME": "dq-rules",
+      "CONFLICTS_TABLE_NAME": "dq-rule-conflicts",
+      "VALIDATION_RUNS_TABLE_NAME": "dq-validation-runs",
+      "VALIDATION_RESULTS_TABLE_NAME": "dq-validation-results",
+      "ANOMALY_TRAINING_TABLE_NAME": "dq-anomaly-training",
+      "ANOMALY_MODELS_TABLE_NAME": "dq-anomaly-models",
+      "ANOMALY_SCORES_TABLE_NAME": "dq-anomaly-scores",
+      "CLEANING_JOBS_TABLE_NAME": "dq-cleaning-jobs",
+      "REPORTS_TABLE_NAME": "dq-reports",
+      "NOTIFICATIONS_TABLE_NAME": "dq-notifications",
+      "NOTIFICATION_RECIPIENTS_TABLE_NAME": "dq-notification-recipients",
+      "SCRIPTS_BUCKET": "dq-scripts-108782054634",
+      "EXPORTS_BUCKET": "dq-exports-108782054634",
+      "CLEAN_BUCKET": "dq-clean-108782054634",
+      "BACKUPS_BUCKET": "dq-backups-108782054634",
+      "REPORTS_BUCKET": "dq-reports-108782054634",
+      "MLFLOW_BUCKET": "dq-mlflow-108782054634",
+      "GLUE_VALIDATION_JOB_NAME": "dq-validation-job",
+      "GLUE_CLEANING_JOB_NAME": "dq-cleaning-job"
+     }
+    },
+    "FunctionName": "dq-notifications",
+    "Handler": "services.reporting.handlers.notifications.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Ref": "SsmParameterValuedqplatformiamlambdarolearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "Runtime": "python3.11",
+    "Timeout": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/DqNotifications/Resource",
+    "aws:asset:path": "asset.f1fa70712d8c49108f213f72bdc637add0e97b356c5c476019d591252d48fabf",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWK0QqCQBAAv8X3dTON3jPoWfQDZD03u/ROuN1DRPz3sOhphmFyzK8ZZgktkpp+TCfb4dYomRHuT19RIMfKAWqWOQbDQIu020Su6wm3R/RG7eyP9+87SNGSCKvg7QBIgWU0I2tJwjt8Y6M0WD/sUK36mv2pwPMFs+Qt1qYherWOsf7xA4A/PwqjAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqLambdaStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,526 @@
+{
+  "/DqDynamoDBStack": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqCatalogsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqCatalogsTable6E8CE855"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqTemplatesTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqTemplatesTable00E3FCA9"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqRulesTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqRulesTableC0A0B96E"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqRuleConflictsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqRuleConflictsTableDB4BD4A2"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationRunsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqValidationRunsTableAEE04308"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationResultsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqValidationResultsTableE99C16F2"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyTrainingTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqAnomalyTrainingTable0550FED8"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyModelsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqAnomalyModelsTable09C65D5B"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyScoresTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqAnomalyScoresTableD2F1E3AC"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqCleaningJobsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqCleaningJobsTable6D06A10F"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqReportsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqReportsTable7DD55E16"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqNotificationsTableF6C44F7B"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationRecipientsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqNotificationRecipientsTable4C227673"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/DqAuditTrailTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "DqAuditTrailTable5B3C0021"
+      }
+    }
+  ],
+  "/DqDynamoDBStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqCatalogsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqCatalogsTable6E8CE855"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqTemplatesTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqTemplatesTable00E3FCA9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqRulesTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqRulesTableC0A0B96E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqRuleConflictsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqRuleConflictsTableDB4BD4A2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationRunsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqValidationRunsTableAEE04308"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationResultsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqValidationResultsTableE99C16F2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyTrainingTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyTrainingTable0550FED8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyModelsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyModelsTable09C65D5B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyScoresTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyScoresTableD2F1E3AC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqCleaningJobsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqCleaningJobsTable6D06A10F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqReportsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqReportsTable7DD55E16"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqNotificationsTableF6C44F7B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationRecipientsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqNotificationRecipientsTable4C227673"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAuditTrailTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAuditTrailTable5B3C0021"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqCatalogsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqCatalogsArnParam16AC3B36"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqTemplatesArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqTemplatesArnParam65F1397D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqRulesArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqRulesArnParam2596BA2C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqRuleConflictsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqRuleConflictsArnParamEA17A529"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationRunsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqValidationRunsArnParam47E85C34"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqValidationResultsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqValidationResultsArnParam67AB2060"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyTrainingArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyTrainingArnParam9498DEA8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyModelsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyModelsArnParamC1B03622"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAnomalyScoresArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAnomalyScoresArnParamDE7A2F55"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqCleaningJobsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqCleaningJobsArnParam57568302"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqReportsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqReportsArnParam88B58BD2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqNotificationsArnParam194FF03B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqNotificationRecipientsArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqNotificationRecipientsArnParamFFD59323"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/DqAuditTrailArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DqAuditTrailArnParam79EC6BCF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/DqDynamoDBStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

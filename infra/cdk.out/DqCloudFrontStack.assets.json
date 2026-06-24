@@ -1,0 +1,21 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "aac1dc65ea574637b30ec231c69128cce011ad81b707320a51b83c37d823ced1": {
+      "displayName": "DqCloudFrontStack Template",
+      "source": {
+        "path": "DqCloudFrontStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-82627472": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "aac1dc65ea574637b30ec231c69128cce011ad81b707320a51b83c37d823ced1.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
