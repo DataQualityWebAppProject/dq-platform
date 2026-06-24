@@ -1,0 +1,10 @@
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.env
+.venv/
+cdk.out/
+*.egg-info/
+.pytest_cache/
+dq-platform-key.pem
