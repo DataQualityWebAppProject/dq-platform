@@ -1,0 +1,240 @@
+{
+ "Resources": {
+  "DqPlatformUserPool79FEEF5C": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": true
+    },
+    "AliasAttributes": [
+     "email"
+    ],
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "EnabledMfas": [
+     "SOFTWARE_TOKEN_MFA"
+    ],
+    "MfaConfiguration": "ON",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": true,
+      "RequireUppercase": true,
+      "TemporaryPasswordValidityDays": 7
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": true,
+      "Name": "email",
+      "Required": true
+     },
+     {
+      "Mutable": true,
+      "Name": "name",
+      "Required": false
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "role",
+      "StringAttributeConstraints": {
+       "MaxLength": "50",
+       "MinLength": "1"
+      }
+     }
+    ],
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolAddOns": {
+     "AdvancedSecurityMode": "ENFORCED"
+    },
+    "UserPoolName": "dq-platform-user-pool",
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/DqPlatformUserPool/Resource"
+   }
+  },
+  "DqPlatformUserPoolDqPlatformUserPoolClientEFADFBAC": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 60,
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "profile",
+     "phone",
+     "email",
+     "openid",
+     "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+     "https://example.com"
+    ],
+    "ClientName": "dq-platform-web-client",
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "IdTokenValidity": 60,
+    "PreventUserExistenceErrors": "ENABLED",
+    "RefreshTokenValidity": 43200,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes",
+     "IdToken": "minutes",
+     "RefreshToken": "minutes"
+    },
+    "UserPoolId": {
+     "Ref": "DqPlatformUserPool79FEEF5C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/DqPlatformUserPool/DqPlatformUserPoolClient/Resource"
+   }
+  },
+  "AdminDatosGroup": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Full administrative privileges over the platform. Create, read, update, and delete access to all resources.",
+    "GroupName": "AdminDatos",
+    "Precedence": 1,
+    "UserPoolId": {
+     "Ref": "DqPlatformUserPool79FEEF5C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/AdminDatosGroup"
+   }
+  },
+  "AnalistaDatosGroup": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Read access to all resources plus ability to trigger validations, anomaly scoring, cleaning script requests, and report generation.",
+    "GroupName": "AnalistaDatos",
+    "Precedence": 2,
+    "UserPoolId": {
+     "Ref": "DqPlatformUserPool79FEEF5C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/AnalistaDatosGroup"
+   }
+  },
+  "UserPoolIdParam81D6760E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform Cognito User Pool ID",
+    "Name": "/dq-platform/cognito-user-pool-id",
+    "Type": "String",
+    "Value": {
+     "Ref": "DqPlatformUserPool79FEEF5C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/UserPoolIdParam/Resource"
+   }
+  },
+  "UserPoolClientIdParam5DF0EADC": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform Cognito User Pool Client ID",
+    "Name": "/dq-platform/cognito-user-pool-client-id",
+    "Type": "String",
+    "Value": {
+     "Ref": "DqPlatformUserPoolDqPlatformUserPoolClientEFADFBAC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/UserPoolClientIdParam/Resource"
+   }
+  },
+  "UserPoolArnParam5D65BFDA": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform Cognito User Pool ARN",
+    "Name": "/dq-platform/cognito-user-pool-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqPlatformUserPool79FEEF5C",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/UserPoolArnParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WNTQrCMBCFz9J9MsYqXqALt0FxLTHGOjaZkSSlSMjdpYhFcPW+9wOvhXanQDVmStJeB+nxAuWYjR2EmdK5WO4JM0M5JRc1sxfdjRb+QufRUf6t/pN95PFZRUphPohIvTbRBJddnGeLqbUK/cp3ptUG1ltQzSMhyjhSxuDg8NE3iT3gNbgAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqCognitoStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

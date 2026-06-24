@@ -1,0 +1,993 @@
+{
+ "Resources": {
+  "DqCatalogsTable6E8CE855": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "owner",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "created_at",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "owner-index",
+      "KeySchema": [
+       {
+        "AttributeName": "owner",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "created_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-catalogs"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqCatalogsTable/Resource"
+   }
+  },
+  "DqTemplatesTable00E3FCA9": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-templates"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqTemplatesTable/Resource"
+   }
+  },
+  "DqRulesTableC0A0B96E": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "scope",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "created_at",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "status",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "scope-target-index",
+      "KeySchema": [
+       {
+        "AttributeName": "scope",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "created_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "status-index",
+      "KeySchema": [
+       {
+        "AttributeName": "status",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "created_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-rules"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqRulesTable/Resource"
+   }
+  },
+  "DqRuleConflictsTableDB4BD4A2": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-rule-conflicts"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqRuleConflictsTable/Resource"
+   }
+  },
+  "DqValidationRunsTableAEE04308": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "run_id",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "run-id-index",
+      "KeySchema": [
+       {
+        "AttributeName": "run_id",
+        "KeyType": "HASH"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-validation-runs"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqValidationRunsTable/Resource"
+   }
+  },
+  "DqValidationResultsTableE99C16F2": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-validation-results",
+    "TimeToLiveSpecification": {
+     "AttributeName": "expires_at",
+     "Enabled": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqValidationResultsTable/Resource"
+   }
+  },
+  "DqAnomalyTrainingTable0550FED8": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-anomaly-training"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyTrainingTable/Resource"
+   }
+  },
+  "DqAnomalyModelsTable09C65D5B": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-anomaly-models"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyModelsTable/Resource"
+   }
+  },
+  "DqAnomalyScoresTableD2F1E3AC": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "dataset_id",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "scored_at",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "dataset-scoring-index",
+      "KeySchema": [
+       {
+        "AttributeName": "dataset_id",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "scored_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-anomaly-scores"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyScoresTable/Resource"
+   }
+  },
+  "DqCleaningJobsTable6D06A10F": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-cleaning-jobs"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqCleaningJobsTable/Resource"
+   }
+  },
+  "DqReportsTable7DD55E16": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "status",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "published_at",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "status-date-index",
+      "KeySchema": [
+       {
+        "AttributeName": "status",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "published_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-reports"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqReportsTable/Resource"
+   }
+  },
+  "DqNotificationsTableF6C44F7B": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "event_type",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "created_at",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "event-type-index",
+      "KeySchema": [
+       {
+        "AttributeName": "event_type",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "created_at",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-notifications"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqNotificationsTable/Resource"
+   }
+  },
+  "DqNotificationRecipientsTable4C227673": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-notification-recipients"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqNotificationRecipientsTable/Resource"
+   }
+  },
+  "DqAuditTrailTable5B3C0021": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "user_id",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "timestamp",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "resource_type_id",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "user-index",
+      "KeySchema": [
+       {
+        "AttributeName": "user_id",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "timestamp",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "resource-index",
+      "KeySchema": [
+       {
+        "AttributeName": "resource_type_id",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "timestamp",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "TableName": "dq-audit-trail"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAuditTrailTable/Resource"
+   }
+  },
+  "DqCatalogsArnParam16AC3B36": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-catalogs",
+    "Name": "/dq-platform/dynamodb-table-dq-catalogs-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqCatalogsTable6E8CE855",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqCatalogsArnParam/Resource"
+   }
+  },
+  "DqTemplatesArnParam65F1397D": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-templates",
+    "Name": "/dq-platform/dynamodb-table-dq-templates-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqTemplatesTable00E3FCA9",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqTemplatesArnParam/Resource"
+   }
+  },
+  "DqRulesArnParam2596BA2C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-rules",
+    "Name": "/dq-platform/dynamodb-table-dq-rules-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqRulesTableC0A0B96E",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqRulesArnParam/Resource"
+   }
+  },
+  "DqRuleConflictsArnParamEA17A529": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-rule-conflicts",
+    "Name": "/dq-platform/dynamodb-table-dq-rule-conflicts-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqRuleConflictsTableDB4BD4A2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqRuleConflictsArnParam/Resource"
+   }
+  },
+  "DqValidationRunsArnParam47E85C34": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-validation-runs",
+    "Name": "/dq-platform/dynamodb-table-dq-validation-runs-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqValidationRunsTableAEE04308",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqValidationRunsArnParam/Resource"
+   }
+  },
+  "DqValidationResultsArnParam67AB2060": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-validation-results",
+    "Name": "/dq-platform/dynamodb-table-dq-validation-results-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqValidationResultsTableE99C16F2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqValidationResultsArnParam/Resource"
+   }
+  },
+  "DqAnomalyTrainingArnParam9498DEA8": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-anomaly-training",
+    "Name": "/dq-platform/dynamodb-table-dq-anomaly-training-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqAnomalyTrainingTable0550FED8",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyTrainingArnParam/Resource"
+   }
+  },
+  "DqAnomalyModelsArnParamC1B03622": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-anomaly-models",
+    "Name": "/dq-platform/dynamodb-table-dq-anomaly-models-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqAnomalyModelsTable09C65D5B",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyModelsArnParam/Resource"
+   }
+  },
+  "DqAnomalyScoresArnParamDE7A2F55": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-anomaly-scores",
+    "Name": "/dq-platform/dynamodb-table-dq-anomaly-scores-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqAnomalyScoresTableD2F1E3AC",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAnomalyScoresArnParam/Resource"
+   }
+  },
+  "DqCleaningJobsArnParam57568302": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-cleaning-jobs",
+    "Name": "/dq-platform/dynamodb-table-dq-cleaning-jobs-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqCleaningJobsTable6D06A10F",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqCleaningJobsArnParam/Resource"
+   }
+  },
+  "DqReportsArnParam88B58BD2": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-reports",
+    "Name": "/dq-platform/dynamodb-table-dq-reports-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqReportsTable7DD55E16",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqReportsArnParam/Resource"
+   }
+  },
+  "DqNotificationsArnParam194FF03B": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-notifications",
+    "Name": "/dq-platform/dynamodb-table-dq-notifications-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqNotificationsTableF6C44F7B",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqNotificationsArnParam/Resource"
+   }
+  },
+  "DqNotificationRecipientsArnParamFFD59323": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-notification-recipients",
+    "Name": "/dq-platform/dynamodb-table-dq-notification-recipients-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqNotificationRecipientsTable4C227673",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqNotificationRecipientsArnParam/Resource"
+   }
+  },
+  "DqAuditTrailArnParam79EC6BCF": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for DynamoDB table dq-audit-trail",
+    "Name": "/dq-platform/dynamodb-table-dq-audit-trail-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqAuditTrailTable5B3C0021",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/DqAuditTrailArnParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/z2KQQ7CIBBFz9I9jFiNF/ACTe3eDDAqtkDC0DQN4e5Na+Lqv5f3W2hvClSDC0tjRzk5DeWR0YwCF34Wuwb00WooA+qJxP0VDqiC2e/P5MK7w4SeMqU9/6VW0RPHORmqolvzJ4bTBc5XUM2XnZNpDtl5gv63G/zoL4SKAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqDynamoDBStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

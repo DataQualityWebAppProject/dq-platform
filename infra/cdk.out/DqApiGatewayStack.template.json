@@ -1,0 +1,3490 @@
+{
+ "Resources": {
+  "DqPlatformApiA21983F4": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "Authorization",
+      "Content-Type",
+      "*"
+     ],
+     "AllowMethods": [
+      "*"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Name": "dq-platform-api",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/Resource"
+   }
+  },
+  "DqPlatformApiDefaultStageDDCEE24E": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/DefaultStage/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogCatalogIntegrationA6917D77": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-catalog-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog/CatalogIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogCatalogIntegrationPermission53CD04CC": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-catalog-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/catalog"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog/CatalogIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYcatalog2A9E84BC": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /catalog",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogCatalogIntegrationA6917D77"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog/Resource"
+   }
+  },
+  "DqPlatformApiDqJwtAuthorizerE10387FD": {
+   "Type": "AWS::ApiGatewayV2::Authorizer",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizerType": "JWT",
+    "IdentitySource": [
+     "$request.header.Authorization"
+    ],
+    "JwtConfiguration": {
+     "Audience": [
+      "4q5odh7hskaevkpphb4p8jgl3j"
+     ],
+     "Issuer": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_8KvqRmGSN"
+    },
+    "Name": "DqJwtAuthorizer"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/DqJwtAuthorizer/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogidCatalogIntegrationPermission9871AD0E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-catalog-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/catalog/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}/CatalogIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYcatalogid49CEA71D": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /catalog/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogCatalogIntegrationA6917D77"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogidtablesTableIntegrationF26BF13F": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-table-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/TableIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogidtablesTableIntegrationPermission16614507": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-table-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/catalog/{id}/tables"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/TableIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYcatalogidtables0DBD7131": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /catalog/{id}/tables",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogidtablesTableIntegrationF26BF13F"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--tables/Resource"
+   }
+  },
+  "DqPlatformApiANYtablesTableIntegrationPermissionACEF45A6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-table-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/tables"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables/TableIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtables378516D9": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /tables",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogidtablesTableIntegrationF26BF13F"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables/Resource"
+   }
+  },
+  "DqPlatformApiANYtablesidTableIntegrationPermission1595A86D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-table-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/tables/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}/TableIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtablesidD42FCAF0": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /tables/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogidtablesTableIntegrationF26BF13F"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}/Resource"
+   }
+  },
+  "DqPlatformApiANYtablesidfieldsFieldIntegrationE3D47279": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-field-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/FieldIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYtablesidfieldsFieldIntegrationPermissionA8CA9AFF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-field-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/tables/{id}/fields"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/FieldIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtablesidfields35546185": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /tables/{id}/fields",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYtablesidfieldsFieldIntegrationE3D47279"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields/Resource"
+   }
+  },
+  "DqPlatformApiANYtablesidfieldsfidFieldIntegrationPermission52805804": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-field-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/tables/{id}/fields/{fid}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields--{fid}/FieldIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtablesidfieldsfidFE786A0A": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /tables/{id}/fields/{fid}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYtablesidfieldsFieldIntegrationE3D47279"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--tables--{id}--fields--{fid}/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-upload-handler"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/UploadIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYcatalogiduploadUploadIntegrationPermission14D483AB": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-upload-handler"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/catalog/{id}/upload"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/UploadIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYcatalogidupload7675826B": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /catalog/{id}/upload",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--catalog--{id}--upload/Resource"
+   }
+  },
+  "DqPlatformApiANYuploaduploadIdcompleteUploadIntegrationPermissionFEDB3ECD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-upload-handler"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/upload/{uploadId}/complete"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--complete/UploadIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYuploaduploadIdcompleteE2064164": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /upload/{uploadId}/complete",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--complete/Resource"
+   }
+  },
+  "DqPlatformApiANYuploaduploadIdabortUploadIntegrationPermissionBC9AB81F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-upload-handler"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/upload/{uploadId}/abort"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--abort/UploadIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYuploaduploadIdabort673B4F18": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /upload/{uploadId}/abort",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--upload--{uploadId}--abort/Resource"
+   }
+  },
+  "DqPlatformApiANYdatasetidpreviewUploadIntegrationPermission1B114471": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-upload-handler"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/dataset/{id}/preview"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--dataset--{id}--preview/UploadIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYdatasetidpreviewC9EB9210": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /dataset/{id}/preview",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYcatalogiduploadUploadIntegration3985849B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--dataset--{id}--preview/Resource"
+   }
+  },
+  "DqPlatformApiANYauditAuditIntegration0CFC78FE": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-audit-handler"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--audit/AuditIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYauditAuditIntegrationPermission3E1DC9B5": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-audit-handler"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/audit"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--audit/AuditIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYauditEDB93723": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /audit",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYauditAuditIntegration0CFC78FE"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--audit/Resource"
+   }
+  },
+  "DqPlatformApiANYtemplatesTemplateIntegration3040196A": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-template-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--templates/TemplateIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYtemplatesTemplateIntegrationPermission6CFCAC67": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-template-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/templates"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--templates/TemplateIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtemplates76C693AD": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /templates",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYtemplatesTemplateIntegration3040196A"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--templates/Resource"
+   }
+  },
+  "DqPlatformApiANYtemplatesidTemplateIntegrationPermissionFF662D8B": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-template-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/templates/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--templates--{id}/TemplateIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYtemplatesid4CF8C793": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /templates/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYtemplatesTemplateIntegration3040196A"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--templates--{id}/Resource"
+   }
+  },
+  "DqPlatformApiPOSTrulesinterpretRuleInterpreterIntegrationBB4D9104": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-rule-interpreter"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/RuleInterpreterIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTrulesinterpretRuleInterpreterIntegrationPermission005CA7BF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-rule-interpreter"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules/interpret"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/RuleInterpreterIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTrulesinterpret6F7F07FF": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /rules/interpret",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTrulesinterpretRuleInterpreterIntegrationBB4D9104"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--interpret/Resource"
+   }
+  },
+  "DqPlatformApiANYrulesconflictsConflictDetectorIntegration4440CB3C": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-conflict-detector"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/ConflictDetectorIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYrulesconflictsConflictDetectorIntegrationPermission4FB035E8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-conflict-detector"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules/conflicts"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/ConflictDetectorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYrulesconflicts9D214C2F": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /rules/conflicts",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYrulesconflictsConflictDetectorIntegration4440CB3C"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules--conflicts/Resource"
+   }
+  },
+  "DqPlatformApiPOSTrulesconflictsidresolveConflictDetectorIntegrationPermissionC7B81DB1": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-conflict-detector"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules/conflicts/{id}/resolve"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--conflicts--{id}--resolve/ConflictDetectorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTrulesconflictsidresolveADDC08E9": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /rules/conflicts/{id}/resolve",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYrulesconflictsConflictDetectorIntegration4440CB3C"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--conflicts--{id}--resolve/Resource"
+   }
+  },
+  "DqPlatformApiPOSTrulesidgeneratecodeCodeGeneratorIntegration949B208B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-code-generator"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/CodeGeneratorIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTrulesidgeneratecodeCodeGeneratorIntegrationPermission5D6A9BB6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-code-generator"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules/{id}/generate-code"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/CodeGeneratorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTrulesidgeneratecode4B87A69B": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /rules/{id}/generate-code",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTrulesidgeneratecodeCodeGeneratorIntegration949B208B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--rules--{id}--generate-code/Resource"
+   }
+  },
+  "DqPlatformApiANYrulesRulesIntegration76B1CAC8": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-rules-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules/RulesIntegration/Resource"
+   }
+  },
+  "DqPlatformApiANYrulesRulesIntegrationPermissionB46C99A2": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-rules-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules/RulesIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYrules07095480": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /rules",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYrulesRulesIntegration76B1CAC8"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules/Resource"
+   }
+  },
+  "DqPlatformApiANYrulesidRulesIntegrationPermission5C37C301": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-rules-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/rules/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules--{id}/RulesIntegration-Permission"
+   }
+  },
+  "DqPlatformApiANYrulesidB4724264": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "ANY /rules/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiANYrulesRulesIntegration76B1CAC8"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/ANY--rules--{id}/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsmetricsValidationMetricsIntegrationF5E07B60": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-metrics"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/ValidationMetricsIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsmetricsValidationMetricsIntegrationPermission980CF1B5": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-metrics"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/validations/metrics"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/ValidationMetricsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETvalidationsmetrics40801D57": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /validations/metrics",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETvalidationsmetricsValidationMetricsIntegrationF5E07B60"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--metrics/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationDA08F745": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-results"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/ValidationResultsIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationPermission72D5C3B7": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-results"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/validations/{id}/results"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/ValidationResultsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETvalidationsidresults3F63406B": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /validations/{id}/results",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationDA08F745"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--{id}--results/Resource"
+   }
+  },
+  "DqPlatformApiPOSTvalidationsValidationOrchestratorIntegration1D928865": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-orchestrator"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--validations/ValidationOrchestratorIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTvalidationsValidationOrchestratorIntegrationPermission73A29DA3": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-orchestrator"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/validations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--validations/ValidationOrchestratorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTvalidations8F2C0328": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /validations",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTvalidationsValidationOrchestratorIntegration1D928865"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--validations/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsValidationResultsIntegrationPermission26F6884D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-results"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/validations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations/ValidationResultsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETvalidations2BCC47B8": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /validations",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationDA08F745"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations/Resource"
+   }
+  },
+  "DqPlatformApiGETvalidationsidValidationResultsIntegrationPermission1EDFA698": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-validation-results"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/validations/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--{id}/ValidationResultsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETvalidationsidB207C597": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /validations/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETvalidationsidresultsValidationResultsIntegrationDA08F745"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--validations--{id}/Resource"
+   }
+  },
+  "DqPlatformApiPOSTanomaliestrainingAnomalyTrainingIntegrationCADD3D09": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-training"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/AnomalyTrainingIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTanomaliestrainingAnomalyTrainingIntegrationPermissionA83DD8E4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-training"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/training"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/AnomalyTrainingIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTanomaliestrainingB87E4750": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /anomalies/training",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTanomaliestrainingAnomalyTrainingIntegrationCADD3D09"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--training/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliestrainingidAnomalyStatusIntegration72484E2B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-status"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/AnomalyStatusIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliestrainingidAnomalyStatusIntegrationPermission21712DD3": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-status"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/training/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/AnomalyStatusIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETanomaliestrainingidA982856A": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /anomalies/training/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETanomaliestrainingidAnomalyStatusIntegration72484E2B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--training--{id}/Resource"
+   }
+  },
+  "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegration5A076E0B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-scoring"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/AnomalyScoringIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegrationPermission7C39E89A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-scoring"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/scoring"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/AnomalyScoringIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTanomaliesscoring8E73A7C2": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /anomalies/scoring",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegration5A076E0B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--anomalies--scoring/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliesscoringidAnomalyScoringIntegrationPermissionE7E719FA": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-scoring"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/scoring/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}/AnomalyScoringIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETanomaliesscoringid63184552": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /anomalies/scoring/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegration5A076E0B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliesscoringidexportAnomalyExportIntegrationF496137B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-export"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/AnomalyExportIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliesscoringidexportAnomalyExportIntegrationPermissionAC3ECFF2": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-export"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/scoring/{id}/export"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/AnomalyExportIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETanomaliesscoringidexportD247C4C6": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /anomalies/scoring/{id}/export",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETanomaliesscoringidexportAnomalyExportIntegrationF496137B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--scoring--{id}--export/Resource"
+   }
+  },
+  "DqPlatformApiGETanomaliesdashboarddatasetIdAnomalyScoringIntegrationPermissionAB1CB4E6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-anomaly-scoring"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/anomalies/dashboard/{datasetId}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--dashboard--{datasetId}/AnomalyScoringIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETanomaliesdashboarddatasetId82076550": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /anomalies/dashboard/{datasetId}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTanomaliesscoringAnomalyScoringIntegration5A076E0B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--anomalies--dashboard--{datasetId}/Resource"
+   }
+  },
+  "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationFE785F20": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-cleaning-orchestrator"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/CleaningOrchestratorIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationPermission90047D8E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-cleaning-orchestrator"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/cleaning/generate"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/CleaningOrchestratorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTcleaninggenerate52481445": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /cleaning/generate",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationFE785F20"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--cleaning--generate/Resource"
+   }
+  },
+  "DqPlatformApiPOSTcleaningidexecuteCleaningOrchestratorIntegrationPermissionAA989F32": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-cleaning-orchestrator"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/cleaning/{id}/execute"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--cleaning--{id}--execute/CleaningOrchestratorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTcleaningidexecute449F9D6E": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /cleaning/{id}/execute",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTcleaninggenerateCleaningOrchestratorIntegrationFE785F20"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--cleaning--{id}--execute/Resource"
+   }
+  },
+  "DqPlatformApiGETcleaningidCleaningStatusIntegration6DAB4EA0": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-cleaning-status"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/CleaningStatusIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETcleaningidCleaningStatusIntegrationPermissionC3C773FA": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-cleaning-status"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/cleaning/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/CleaningStatusIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETcleaningidF58CD7AF": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /cleaning/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETcleaningidCleaningStatusIntegration6DAB4EA0"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--cleaning--{id}/Resource"
+   }
+  },
+  "DqPlatformApiPOSTreportsgenerateReportGeneratorIntegration70ACF78E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-report-generator"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--generate/ReportGeneratorIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTreportsgenerateReportGeneratorIntegrationPermission36C139F3": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-report-generator"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports/generate"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--generate/ReportGeneratorIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTreportsgenerate59F662C2": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /reports/generate",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsgenerateReportGeneratorIntegration70ACF78E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--generate/Resource"
+   }
+  },
+  "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/ReportsCrudIntegration/Resource"
+   }
+  },
+  "DqPlatformApiPOSTreportsidpublishReportsCrudIntegrationPermissionD07440FD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports/{id}/publish"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/ReportsCrudIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTreportsidpublish7B70B788": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /reports/{id}/publish",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--reports--{id}--publish/Resource"
+   }
+  },
+  "DqPlatformApiGETreportsidversionsReportsCrudIntegrationPermissionDCB5D7AE": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports/{id}/versions"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports--{id}--versions/ReportsCrudIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETreportsidversionsE0DCFC15": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /reports/{id}/versions",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports--{id}--versions/Resource"
+   }
+  },
+  "DqPlatformApiGETreportsReportsCrudIntegrationPermissionAA8B5F61": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports/ReportsCrudIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETreportsD52C3D9E": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /reports",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports/Resource"
+   }
+  },
+  "DqPlatformApiGETreportsidReportsCrudIntegrationPermission93336072": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports--{id}/ReportsCrudIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETreportsidCDA170C9": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /reports/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--reports--{id}/Resource"
+   }
+  },
+  "DqPlatformApiPUTreportsidReportsCrudIntegrationPermissionB1D5F046": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-reports-crud"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/reports/{id}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/PUT--reports--{id}/ReportsCrudIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPUTreportsid4CFE5876": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "PUT /reports/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiPOSTreportsidpublishReportsCrudIntegration9B63A594"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/PUT--reports--{id}/Resource"
+   }
+  },
+  "DqPlatformApiGETnotificationsNotificationsIntegration6BF13CAE": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-notifications"
+      ]
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--notifications/NotificationsIntegration/Resource"
+   }
+  },
+  "DqPlatformApiGETnotificationsNotificationsIntegrationPermissionA9C4F2D5": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-notifications"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/notifications"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--notifications/NotificationsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETnotifications190AE663": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /notifications",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETnotificationsNotificationsIntegration6BF13CAE"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--notifications/Resource"
+   }
+  },
+  "DqPlatformApiPOSTnotificationsrecipientsNotificationsIntegrationPermission232423ED": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-notifications"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/notifications/recipients"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--notifications--recipients/NotificationsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiPOSTnotificationsrecipientsFCFBE160": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "POST /notifications/recipients",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETnotificationsNotificationsIntegration6BF13CAE"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/POST--notifications--recipients/Resource"
+   }
+  },
+  "DqPlatformApiGETnotificationsrecipientsNotificationsIntegrationPermissionDD9D493A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":lambda:us-east-1:108782054634:function:dq-notifications"
+      ]
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:108782054634:",
+       {
+        "Ref": "DqPlatformApiA21983F4"
+       },
+       "/*/*/notifications/recipients"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--notifications--recipients/NotificationsIntegration-Permission"
+   }
+  },
+  "DqPlatformApiGETnotificationsrecipients25488AC6": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "DqPlatformApiA21983F4"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "DqPlatformApiDqJwtAuthorizerE10387FD"
+    },
+    "RouteKey": "GET /notifications/recipients",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "DqPlatformApiGETnotificationsNotificationsIntegration6BF13CAE"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/DqPlatformApi/GET--notifications--recipients/Resource"
+   }
+  },
+  "ApiGatewayUrlParam61D64558": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "DQ Platform API Gateway endpoint URL",
+    "Name": "/dq-platform/api-gateway-url",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqPlatformApiA21983F4",
+      "ApiEndpoint"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/ApiGatewayUrlParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12OwQ6CMBBEv8V7qYjGO5oYPUngA8yCFVdoIe1WgqT/blYSTTzNvMnsZBOZbGMZL2BwUXVtohZLORUEVSNgcJcJeqyB1ADjM5HTkahPexT7m2FhLAhqxcFsOMo7T7M7GVK1BcLOcOUPf73U072z+FL2M/2lIFrQ5RXktL+ZTFmNzvHxwZuKV3bgVBDOaf7ZoqkzsKAVzTtfCIHx7Kn3FEQ20r0zy7VcbWS8eDjEyHpDqJXMZ30DFSgmhRUBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqApiGatewayStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ApiEndpoint": {
+   "Description": "DQ Platform API Gateway endpoint URL",
+   "Value": {
+    "Fn::GetAtt": [
+     "DqPlatformApiA21983F4",
+     "ApiEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "DqApiGatewayUrl"
+   }
+  },
+  "ApiId": {
+   "Description": "DQ Platform API Gateway ID",
+   "Value": {
+    "Ref": "DqPlatformApiA21983F4"
+   },
+   "Export": {
+    "Name": "DqApiGatewayId"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

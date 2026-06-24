@@ -1,0 +1,589 @@
+{
+ "Resources": {
+  "DqPlatformVpcD0FFFFC5": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "dq-platform-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/Resource"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1SubnetAA34C800": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1RouteTableE2C0A414": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1RouteTableAssociation61F56503": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPublicSubnet1RouteTableE2C0A414"
+    },
+    "SubnetId": {
+     "Ref": "DqPlatformVpcPublicSubnet1SubnetAA34C800"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1DefaultRoute7E4803D1": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "DqPlatformVpcIGWD14354E5"
+    },
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPublicSubnet1RouteTableE2C0A414"
+    }
+   },
+   "DependsOn": [
+    "DqPlatformVpcVPCGWBF9E58D9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1EIP78341E98": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/EIP"
+   }
+  },
+  "DqPlatformVpcPublicSubnet1NATGatewayDEF35FC0": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "DqPlatformVpcPublicSubnet1EIP78341E98",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "DqPlatformVpcPublicSubnet1SubnetAA34C800"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "DqPlatformVpcPublicSubnet1DefaultRoute7E4803D1",
+    "DqPlatformVpcPublicSubnet1RouteTableAssociation61F56503"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "DqPlatformVpcPublicSubnet2SubnetCEBDCE1A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "DqPlatformVpcPublicSubnet2RouteTable8B21C7BA": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "DqPlatformVpcPublicSubnet2RouteTableAssociationF6D0C6EC": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPublicSubnet2RouteTable8B21C7BA"
+    },
+    "SubnetId": {
+     "Ref": "DqPlatformVpcPublicSubnet2SubnetCEBDCE1A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "DqPlatformVpcPublicSubnet2DefaultRouteBC477F82": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "DqPlatformVpcIGWD14354E5"
+    },
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPublicSubnet2RouteTable8B21C7BA"
+    }
+   },
+   "DependsOn": [
+    "DqPlatformVpcVPCGWBF9E58D9"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet1SubnetA7C2A602": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet1RouteTable3F321250": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet1RouteTableAssociationC4909D57": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPrivateSubnet1RouteTable3F321250"
+    },
+    "SubnetId": {
+     "Ref": "DqPlatformVpcPrivateSubnet1SubnetA7C2A602"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet1DefaultRoute875E1D50": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "DqPlatformVpcPublicSubnet1NATGatewayDEF35FC0"
+    },
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPrivateSubnet1RouteTable3F321250"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet2SubnetCB373483": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet2RouteTable794079A9": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "DqVpcStack/DqPlatformVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet2RouteTableAssociation834914BB": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPrivateSubnet2RouteTable794079A9"
+    },
+    "SubnetId": {
+     "Ref": "DqPlatformVpcPrivateSubnet2SubnetCB373483"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "DqPlatformVpcPrivateSubnet2DefaultRoute2BA31482": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "DqPlatformVpcPublicSubnet1NATGatewayDEF35FC0"
+    },
+    "RouteTableId": {
+     "Ref": "DqPlatformVpcPrivateSubnet2RouteTable794079A9"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "DqPlatformVpcIGWD14354E5": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "dq-platform-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/IGW"
+   }
+  },
+  "DqPlatformVpcVPCGWBF9E58D9": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "DqPlatformVpcIGWD14354E5"
+    },
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/VPCGW"
+   }
+  },
+  "DqPlatformVpcS3EndpointB11FA917": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "RouteTableIds": [
+     {
+      "Ref": "DqPlatformVpcPrivateSubnet1RouteTable3F321250"
+     },
+     {
+      "Ref": "DqPlatformVpcPrivateSubnet2RouteTable794079A9"
+     },
+     {
+      "Ref": "DqPlatformVpcPublicSubnet1RouteTableE2C0A414"
+     },
+     {
+      "Ref": "DqPlatformVpcPublicSubnet2RouteTable8B21C7BA"
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".s3"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "dq-platform-vpc"
+     }
+    ],
+    "VpcEndpointType": "Gateway",
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/S3Endpoint/Resource"
+   }
+  },
+  "DqPlatformVpcDynamoDbEndpoint9F078CEE": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "RouteTableIds": [
+     {
+      "Ref": "DqPlatformVpcPrivateSubnet1RouteTable3F321250"
+     },
+     {
+      "Ref": "DqPlatformVpcPrivateSubnet2RouteTable794079A9"
+     },
+     {
+      "Ref": "DqPlatformVpcPublicSubnet1RouteTableE2C0A414"
+     },
+     {
+      "Ref": "DqPlatformVpcPublicSubnet2RouteTable8B21C7BA"
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".dynamodb"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "dq-platform-vpc"
+     }
+    ],
+    "VpcEndpointType": "Gateway",
+    "VpcId": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/DqPlatformVpc/DynamoDbEndpoint/Resource"
+   }
+  },
+  "VpcIdParamE55A048C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform VPC ID",
+    "Name": "/dq-platform/vpc-id",
+    "Type": "String",
+    "Value": {
+     "Ref": "DqPlatformVpcD0FFFFC5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/VpcIdParam/Resource"
+   }
+  },
+  "PrivateSubnetIdsParam9C245608": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform private subnet IDs (comma-separated)",
+    "Name": "/dq-platform/private-subnet-ids",
+    "Type": "String",
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       {
+        "Ref": "DqPlatformVpcPrivateSubnet1SubnetA7C2A602"
+       },
+       ",",
+       {
+        "Ref": "DqPlatformVpcPrivateSubnet2SubnetCB373483"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/PrivateSubnetIdsParam/Resource"
+   }
+  },
+  "PublicSubnetIdsParam26DA81CB": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Data Quality Platform public subnet IDs (comma-separated)",
+    "Name": "/dq-platform/public-subnet-ids",
+    "Type": "String",
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       {
+        "Ref": "DqPlatformVpcPublicSubnet1SubnetAA34C800"
+       },
+       ",",
+       {
+        "Ref": "DqPlatformVpcPublicSubnet2SubnetCEBDCE1A"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/PublicSubnetIdsParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WPwYrCQAyGn8X7dLZ2Ze8iIl6WoUqvSzpGjbaZMpPZIqXvvgx221P+/+MjJIUuvnKdr6APmb08s4ZqPZwE7FNBH34GtIUeqs6q3ZUrs1Mm1g3ZU6wZJbEllS4KnqFucOEL24bgLIGQ41lOYX80aXyDHECwh5cynn5BcFl8ZEHPOAvvS6a2FQF7b5FFTaTq7J4vnSOWSf2vowqhTd954psBDy0K+iTNZRxVicFFb3FU5iV3xx+fer3R+eoRiDIfWahFXb7nH5hceVM+AQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqVpcStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

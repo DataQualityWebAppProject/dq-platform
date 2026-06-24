@@ -1,0 +1,405 @@
+{
+ "Resources": {
+  "DqLambdaExecutionRole72DB24E3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Execution role for Data Quality Platform Lambda functions",
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "DqLambdaExecutionRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqLambdaExecutionRole/Resource"
+   }
+  },
+  "DqLambdaExecutionRoleDefaultPolicyAE9123C6": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:logs:us-east-1:108782054634:*",
+       "Sid": "CloudWatchLogs"
+      },
+      {
+       "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:dynamodb:us-east-1:108782054634:table/dq-*",
+       "Sid": "DynamoDBAccess"
+      },
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:s3:::dq-*-108782054634/*",
+       "Sid": "S3Access"
+      },
+      {
+       "Action": "bedrock:InvokeModel",
+       "Effect": "Allow",
+       "Resource": "arn:aws:bedrock:us-east-1::foundation-model/*",
+       "Sid": "BedrockAccess"
+      },
+      {
+       "Action": [
+        "ses:SendEmail",
+        "ses:SendRawEmail"
+       ],
+       "Effect": "Allow",
+       "Resource": "*",
+       "Sid": "SESAccess"
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:glue:us-east-1:108782054634:job/dq-*",
+       "Sid": "GlueAccess"
+      },
+      {
+       "Action": [
+        "sagemaker:InvokeEndpoint",
+        "sagemaker:CreateTrainingJob",
+        "sagemaker:DescribeTrainingJob"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:sagemaker:us-east-1:108782054634:*",
+       "Sid": "SageMakerAccess"
+      },
+      {
+       "Action": "ssm:GetParameter",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ssm:us-east-1:108782054634:parameter/dq-platform/*",
+       "Sid": "SSMReadAccess"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DqLambdaExecutionRoleDefaultPolicyAE9123C6",
+    "Roles": [
+     {
+      "Ref": "DqLambdaExecutionRole72DB24E3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqLambdaExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "DqGlueExecutionRole6DED375F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "glue.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Execution role for Data Quality Platform Glue jobs",
+    "RoleName": "DqGlueExecutionRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqGlueExecutionRole/Resource"
+   }
+  },
+  "DqGlueExecutionRoleDefaultPolicy2026ACF3": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:logs:us-east-1:108782054634:*",
+       "Sid": "CloudWatchLogs"
+      },
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:s3:::dq-raw-*",
+        "arn:aws:s3:::dq-raw-*/*",
+        "arn:aws:s3:::dq-clean-*",
+        "arn:aws:s3:::dq-clean-*/*",
+        "arn:aws:s3:::dq-scripts-*",
+        "arn:aws:s3:::dq-scripts-*/*"
+       ],
+       "Sid": "S3ReadWriteAccess"
+      },
+      {
+       "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:dynamodb:us-east-1:108782054634:table/dq-validation-results",
+        "arn:aws:dynamodb:us-east-1:108782054634:table/dq-cleaning-jobs"
+       ],
+       "Sid": "DynamoDBReadWriteAccess"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DqGlueExecutionRoleDefaultPolicy2026ACF3",
+    "Roles": [
+     {
+      "Ref": "DqGlueExecutionRole6DED375F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqGlueExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "DqSageMakerExecutionRoleB2E685E2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "sagemaker.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Execution role for Data Quality Platform SageMaker training and inference",
+    "RoleName": "DqSageMakerExecutionRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqSageMakerExecutionRole/Resource"
+   }
+  },
+  "DqSageMakerExecutionRoleDefaultPolicy43A73EE7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:logs:us-east-1:108782054634:*",
+       "Sid": "CloudWatchLogs"
+      },
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:s3:::dq-mlflow-*",
+        "arn:aws:s3:::dq-mlflow-*/*",
+        "arn:aws:s3:::dq-raw-*",
+        "arn:aws:s3:::dq-raw-*/*"
+       ],
+       "Sid": "S3ReadWriteAccess"
+      },
+      {
+       "Action": [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetAuthorizationToken"
+       ],
+       "Effect": "Allow",
+       "Resource": "*",
+       "Sid": "ECRPullAccess"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DqSageMakerExecutionRoleDefaultPolicy43A73EE7",
+    "Roles": [
+     {
+      "Ref": "DqSageMakerExecutionRoleB2E685E2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/DqSageMakerExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "LambdaRoleArnParam1F87C5AB": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for the Lambda execution role",
+    "Name": "/dq-platform/iam-lambda-role-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqLambdaExecutionRole72DB24E3",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/LambdaRoleArnParam/Resource"
+   }
+  },
+  "GlueRoleArnParam8E687EA9": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for the Glue execution role",
+    "Name": "/dq-platform/iam-glue-role-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqGlueExecutionRole6DED375F",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/GlueRoleArnParam/Resource"
+   }
+  },
+  "SageMakerRoleArnParam7B1CB35E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for the SageMaker execution role",
+    "Name": "/dq-platform/iam-sagemaker-role-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "DqSageMakerExecutionRoleB2E685E2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/SageMakerRoleArnParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWLWwqDMBBF1+J/Mqa2uIFuINgFyDSNdmoekEkRCdl7UenXuYfD7aDrFagGV5bmtUhHTyiPjGYRuPJYCD2UITor7lM4qKMjs+16riqY/f5JFGaNCb3NNh39L7VWobf8jqG9wuUGqvkwkUzfkMlbGE7+APAcktWLAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqIamStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

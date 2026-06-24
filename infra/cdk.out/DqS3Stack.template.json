@@ -1,0 +1,1231 @@
+{
+ "Resources": {
+  "RawBucket0C3EE094": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-raw-108782054634",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "transition-to-ia-90d",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "STANDARD_IA",
+         "TransitionInDays": 90
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/RawBucket/Resource"
+   }
+  },
+  "RawBucketPolicy61C50A52": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "RawBucket0C3EE094"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RawBucket0C3EE094",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RawBucket0C3EE094",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/RawBucket/Policy/Resource"
+   }
+  },
+  "CleanBucket6216A438": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-clean-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/CleanBucket/Resource"
+   }
+  },
+  "CleanBucketPolicyD8238323": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "CleanBucket6216A438"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "CleanBucket6216A438",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "CleanBucket6216A438",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/CleanBucket/Policy/Resource"
+   }
+  },
+  "MetricsBucket48210CFB": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-metrics-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MetricsBucket/Resource"
+   }
+  },
+  "MetricsBucketPolicy3D244651": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "MetricsBucket48210CFB"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MetricsBucket48210CFB",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MetricsBucket48210CFB",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MetricsBucket/Policy/Resource"
+   }
+  },
+  "ScriptsBucket40FEB4B1": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-scripts-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ScriptsBucket/Resource"
+   }
+  },
+  "ScriptsBucketPolicy8E6D5B91": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ScriptsBucket40FEB4B1"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ScriptsBucket40FEB4B1",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ScriptsBucket40FEB4B1",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ScriptsBucket/Policy/Resource"
+   }
+  },
+  "FrontendBucketEFE2E19C": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-frontend-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/FrontendBucket/Resource"
+   }
+  },
+  "FrontendBucketPolicy1DFF75D9": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "FrontendBucketEFE2E19C"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendBucketEFE2E19C",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FrontendBucketEFE2E19C",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendBucketEFE2E19C",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FrontendBucketEFE2E19C",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/FrontendBucket/Policy/Resource"
+   }
+  },
+  "FrontendBucketAutoDeleteObjectsCustomResourceDB860B32": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "FrontendBucketEFE2E19C"
+    }
+   },
+   "DependsOn": [
+    "FrontendBucketPolicy1DFF75D9"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/FrontendBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-108782054634-us-east-1",
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "FrontendBucketEFE2E19C"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+    "aws:asset:property": "Code"
+   }
+  },
+  "MlflowBucket472F3C10": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-mlflow-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MlflowBucket/Resource"
+   }
+  },
+  "MlflowBucketPolicy04C13139": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "MlflowBucket472F3C10"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MlflowBucket472F3C10",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MlflowBucket472F3C10",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MlflowBucket/Policy/Resource"
+   }
+  },
+  "ExportsBucket5A12738B": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-exports-108782054634",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "ExpirationInDays": 7,
+       "Id": "expire-after-7d",
+       "Status": "Enabled"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ExportsBucket/Resource"
+   }
+  },
+  "ExportsBucketPolicyF65C412E": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ExportsBucket5A12738B"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ExportsBucket5A12738B",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ExportsBucket5A12738B",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ExportsBucket5A12738B",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ExportsBucket5A12738B",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ExportsBucket/Policy/Resource"
+   }
+  },
+  "ExportsBucketAutoDeleteObjectsCustomResource12EF524C": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "ExportsBucket5A12738B"
+    }
+   },
+   "DependsOn": [
+    "ExportsBucketPolicyF65C412E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ExportsBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "BackupsBucketC69911ED": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-backups-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/BackupsBucket/Resource"
+   }
+  },
+  "BackupsBucketPolicyBD983994": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "BackupsBucketC69911ED"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "BackupsBucketC69911ED",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "BackupsBucketC69911ED",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/BackupsBucket/Policy/Resource"
+   }
+  },
+  "ReportsBucket4E7C5994": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "dq-reports-108782054634",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ReportsBucket/Resource"
+   }
+  },
+  "ReportsBucketPolicy11C4A507": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ReportsBucket4E7C5994"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ReportsBucket4E7C5994",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ReportsBucket4E7C5994",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ReportsBucket/Policy/Resource"
+   }
+  },
+  "RawBucketArnParam8A810B0D": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-raw S3 bucket",
+    "Name": "/dq-platform/s3-raw-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "RawBucket0C3EE094",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/RawBucketArnParam/Resource"
+   }
+  },
+  "RawBucketNameParamDBDB9511": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-raw S3 bucket",
+    "Name": "/dq-platform/s3-raw-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "RawBucket0C3EE094"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/RawBucketNameParam/Resource"
+   }
+  },
+  "CleanBucketArnParam52ECA584": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-clean S3 bucket",
+    "Name": "/dq-platform/s3-clean-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "CleanBucket6216A438",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/CleanBucketArnParam/Resource"
+   }
+  },
+  "CleanBucketNameParam9F057088": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-clean S3 bucket",
+    "Name": "/dq-platform/s3-clean-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "CleanBucket6216A438"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/CleanBucketNameParam/Resource"
+   }
+  },
+  "MetricsBucketArnParam1304009A": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-metrics S3 bucket",
+    "Name": "/dq-platform/s3-metrics-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "MetricsBucket48210CFB",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MetricsBucketArnParam/Resource"
+   }
+  },
+  "MetricsBucketNameParam4FDCBE21": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-metrics S3 bucket",
+    "Name": "/dq-platform/s3-metrics-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "MetricsBucket48210CFB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MetricsBucketNameParam/Resource"
+   }
+  },
+  "ScriptsBucketArnParamEE040F8F": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-scripts S3 bucket",
+    "Name": "/dq-platform/s3-scripts-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ScriptsBucket40FEB4B1",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ScriptsBucketArnParam/Resource"
+   }
+  },
+  "ScriptsBucketNameParamBE288F8C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-scripts S3 bucket",
+    "Name": "/dq-platform/s3-scripts-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "ScriptsBucket40FEB4B1"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ScriptsBucketNameParam/Resource"
+   }
+  },
+  "FrontendBucketArnParam9A233F00": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-frontend S3 bucket",
+    "Name": "/dq-platform/s3-frontend-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "FrontendBucketEFE2E19C",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/FrontendBucketArnParam/Resource"
+   }
+  },
+  "FrontendBucketNameParam9CA6013C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-frontend S3 bucket",
+    "Name": "/dq-platform/s3-frontend-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "FrontendBucketEFE2E19C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/FrontendBucketNameParam/Resource"
+   }
+  },
+  "MlflowBucketArnParam58A8AAA7": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-mlflow S3 bucket",
+    "Name": "/dq-platform/s3-mlflow-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "MlflowBucket472F3C10",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MlflowBucketArnParam/Resource"
+   }
+  },
+  "MlflowBucketNameParamC5887DD8": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-mlflow S3 bucket",
+    "Name": "/dq-platform/s3-mlflow-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "MlflowBucket472F3C10"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/MlflowBucketNameParam/Resource"
+   }
+  },
+  "ExportsBucketArnParam85F766FA": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-exports S3 bucket",
+    "Name": "/dq-platform/s3-exports-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ExportsBucket5A12738B",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ExportsBucketArnParam/Resource"
+   }
+  },
+  "ExportsBucketNameParam11F6773B": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-exports S3 bucket",
+    "Name": "/dq-platform/s3-exports-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "ExportsBucket5A12738B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ExportsBucketNameParam/Resource"
+   }
+  },
+  "BackupsBucketArnParam2C487A4F": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-backups S3 bucket",
+    "Name": "/dq-platform/s3-backups-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "BackupsBucketC69911ED",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/BackupsBucketArnParam/Resource"
+   }
+  },
+  "BackupsBucketNameParamDF1CFD29": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-backups S3 bucket",
+    "Name": "/dq-platform/s3-backups-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "BackupsBucketC69911ED"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/BackupsBucketNameParam/Resource"
+   }
+  },
+  "ReportsBucketArnParamCFDFF4DB": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ARN for dq-reports S3 bucket",
+    "Name": "/dq-platform/s3-reports-bucket-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ReportsBucket4E7C5994",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ReportsBucketArnParam/Resource"
+   }
+  },
+  "ReportsBucketNameParamFD38931D": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Name of the dq-reports S3 bucket",
+    "Name": "/dq-platform/s3-reports-bucket-name",
+    "Type": "String",
+    "Value": {
+     "Ref": "ReportsBucket4E7C5994"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/ReportsBucketNameParam/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WMTQ6CMBCFz+K+VATjXrhAAwcwtYw4QtukM5UQ0rsbgpG4et/7yStkccllftATZaYbshHvcmlZm0HoiW4LlXKpohmARf1wX9pE+RHNvMebT4LIrhcBXa900BYYwrr6mZREHYm9bYB8DAbWdue/SgX/xg5CpQnElQi4Zd2j65NQMz+9O5bydJb54UWIWYiO0YJsNv0AUKTvUd0AAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "DqS3Stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "357229297a4120ad94c280a6b3055cbedd55ffcf94bfbdd6fa50ec2208f770e9": {
+      "displayName": "DqApiGatewayStack Template",
+      "source": {
+        "path": "DqApiGatewayStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "108782054634-us-east-1-1048a6a0": {
+          "bucketName": "cdk-hnb659fds-assets-108782054634-us-east-1",
+          "objectKey": "357229297a4120ad94c280a6b3055cbedd55ffcf94bfbdd6fa50ec2208f770e9.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::108782054634:role/cdk-hnb659fds-file-publishing-role-108782054634-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
