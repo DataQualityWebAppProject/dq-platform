@@ -1,0 +1,12 @@
+[
+  {
+    "ChannelName": "training",
+    "DataSource": {
+      "S3DataSource": {
+        "S3DataType": "S3Prefix",
+        "S3Uri": "s3://dq-raw-108782054634/uploads/",
+        "S3DataDistributionType": "FullyReplicated"
+      }
+    }
+  }
+]
