@@ -375,13 +375,13 @@ def _query_by_time_range(
     # Build SK condition for date range within a partition
     sk_condition = None
     if params.start_date and params.end_date:
-        sk_condition = Key("SK").between(
+        sk_condition = Key("sk").between(
             params.start_date.isoformat(), params.end_date.isoformat() + "~"
         )
     elif params.start_date:
-        sk_condition = Key("SK").gte(params.start_date.isoformat())
+        sk_condition = Key("sk").gte(params.start_date.isoformat())
     elif params.end_date:
-        sk_condition = Key("SK").lte(params.end_date.isoformat() + "~")
+        sk_condition = Key("sk").lte(params.end_date.isoformat() + "~")
 
     # Query the current month partition (most common case)
     pk_value = f"AUDIT#{now.strftime('%Y-%m')}"
