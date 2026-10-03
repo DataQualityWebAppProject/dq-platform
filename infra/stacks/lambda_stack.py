@@ -73,14 +73,22 @@ class DqLambdaStack(Stack):
         # Workspace root (parent of infra/)
         workspace_root = str(Path(__file__).resolve().parent.parent.parent)
 
+        # Cognito IDs — read dynamically from SSM (never hardcode, pool can be recreated)
+        cognito_user_pool_id = ssm.StringParameter.value_for_string_parameter(
+            self, "/dq-platform/cognito-user-pool-id"
+        )
+        cognito_client_id = ssm.StringParameter.value_for_string_parameter(
+            self, "/dq-platform/cognito-user-pool-client-id"
+        )
+
         # Common environment variables for all Lambda functions
         common_env = {
             "CATALOG_TABLE_NAME": "dq-catalogs",
             "TEMPLATES_TABLE_NAME": "dq-templates",
             "AUDIT_TABLE_NAME": "dq-audit-trail",
             "S3_RAW_BUCKET": "dq-raw-108782054634",
-            "COGNITO_USER_POOL_ID": "us-east-1_8KvqRmGSN",
-            "COGNITO_CLIENT_ID": "4q5odh7hskaevkpphb4p8jgl3j",
+            "COGNITO_USER_POOL_ID": cognito_user_pool_id,
+            "COGNITO_CLIENT_ID": cognito_client_id,
             "AWS_REGION_NAME": "us-east-1",
             # Rules service tables
             "RULES_TABLE_NAME": "dq-rules",
