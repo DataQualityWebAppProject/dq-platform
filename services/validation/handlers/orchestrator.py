@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -159,12 +159,12 @@ def _trigger_validation(event: dict[str, Any], request_id: str) -> dict[str, Any
         )
 
     # Create validation run record
-    run_id = str(ulid.new())
+    run_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     run_item = {
-        "PK": f"VALIDATION#{run_id}",
-        "SK": "METADATA",
+        "pk": f"VALIDATION#{run_id}",
+        "sk": "METADATA",
         "id": run_id,
         "datasetId": dataset_id,
         "datasetS3Path": dataset_s3_path,

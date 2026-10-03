@@ -133,8 +133,8 @@ def main():
                     failed_evaluations += 1
 
                 result_item = {
-                    "PK": f"RUN#{run_id}",
-                    "SK": f"RECORD#{idx}#RULE#{rule_id}",
+                    "pk": f"RUN#{run_id}",
+                    "sk": f"RECORD#{idx}#RULE#{rule_id}",
                     "runId": run_id,
                     "recordId": str(idx),
                     "ruleId": rule_id,
@@ -159,8 +159,8 @@ def main():
                 )
 
                 result_item = {
-                    "PK": f"RUN#{run_id}",
-                    "SK": f"RECORD#{idx}#RULE#{rule_id}",
+                    "pk": f"RUN#{run_id}",
+                    "sk": f"RECORD#{idx}#RULE#{rule_id}",
                     "runId": run_id,
                     "recordId": str(idx),
                     "ruleId": rule_id,
@@ -322,7 +322,7 @@ def _update_run_status(
 
     try:
         table.update_item(
-            Key={"PK": f"VALIDATION#{run_id}", "SK": "METADATA"},
+            Key={"pk": f"VALIDATION#{run_id}", "sk": "METADATA"},
             UpdateExpression=update_expr,
             ExpressionAttributeValues=expr_values,
             ExpressionAttributeNames=expr_names,

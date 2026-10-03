@@ -235,7 +235,7 @@ class DynamoHelper:
         """
         try:
             response = self._table.get_item(
-                Key={"PK": pk, "SK": sk},
+                Key={"pk": pk, "sk": sk},
                 ConsistentRead=consistent_read,
             )
             return response.get("Item")
@@ -269,7 +269,7 @@ class DynamoHelper:
             ClientError: If the update fails.
         """
         kwargs: dict[str, Any] = {
-            "Key": {"PK": pk, "SK": sk},
+            "Key": {"pk": pk, "sk": sk},
             "UpdateExpression": update_expression,
             "ExpressionAttributeValues": expression_values,
             "ReturnValues": "ALL_NEW",
@@ -307,7 +307,7 @@ class DynamoHelper:
             ClientError: If the delete fails.
         """
         kwargs: dict[str, Any] = {
-            "Key": {"PK": pk, "SK": sk},
+            "Key": {"pk": pk, "sk": sk},
             "ReturnValues": "ALL_OLD",
         }
         if condition_expression:
@@ -353,7 +353,7 @@ class DynamoHelper:
             pagination = PaginationParams(page_size=DEFAULT_PAGE_SIZE, next_token=None)
 
         # Build key condition
-        key_condition = Key("PK").eq(pk_value)
+        key_condition = Key("pk").eq(pk_value)
         if sk_condition is not None:
             key_condition = key_condition & sk_condition
 
@@ -646,7 +646,7 @@ class DynamoHelper:
         Returns:
             Total count of matching items.
         """
-        key_condition = Key("PK").eq(pk_value)
+        key_condition = Key("pk").eq(pk_value)
         if sk_condition is not None:
             key_condition = key_condition & sk_condition
 

@@ -125,7 +125,7 @@ def _get_metrics(event: dict[str, Any], request_id: str) -> dict[str, Any]:
     db = DynamoHelper(VALIDATION_RUNS_TABLE)
 
     filter_expr = (
-        Attr("SK").eq("METADATA")
+        Attr("sk").eq("METADATA")
         & Attr("startedAt").gte(start_date)
         & Attr("startedAt").lte(end_date)
         & Attr("status").eq("completed")

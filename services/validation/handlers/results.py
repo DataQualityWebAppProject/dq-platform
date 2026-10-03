@@ -144,7 +144,7 @@ def _list_validation_runs(event: dict[str, Any], request_id: str) -> dict[str, A
     db = DynamoHelper(VALIDATION_RUNS_TABLE)
 
     # Build filter expression
-    filter_expr = Attr("SK").eq("METADATA")
+    filter_expr = Attr("sk").eq("METADATA")
     if filter_dataset:
         filter_expr = filter_expr & Attr("datasetId").eq(filter_dataset)
     if filter_status:
