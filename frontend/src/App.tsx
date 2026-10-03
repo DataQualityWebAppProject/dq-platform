@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Catalog from './pages/Catalog'
 import CatalogDetail from './pages/CatalogDetail'
+import Upload from './pages/Upload'
 import Rules from './pages/Rules'
 import Validation from './pages/Validation'
 import Anomalies from './pages/Anomalies'
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="catalog" element={<Catalog />} />
           <Route path="catalog/:id" element={<CatalogDetail />} />
+          <Route path="upload" element={<Upload />} />
           <Route path="rules" element={<Rules />} />
           <Route path="validation" element={<Validation />} />
           <Route path="anomalies" element={<Anomalies />} />
