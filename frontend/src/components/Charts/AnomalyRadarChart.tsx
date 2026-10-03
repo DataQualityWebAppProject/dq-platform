@@ -13,18 +13,18 @@ interface AnomalyRadarChartProps {
 
 export default function AnomalyRadarChart({ data, title }: AnomalyRadarChartProps) {
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
-      {title && <h3 className="text-sm font-medium text-gray-300 mb-4">{title}</h3>}
+    <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      {title && <h3 className="text-sm font-semibold text-gray-700 mb-4">{title}</h3>}
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={data} cx="50%" cy="50%" outerRadius="70%">
-            <PolarGrid stroke="#374151" />
-            <PolarAngleAxis dataKey="field" stroke="#9ca3af" fontSize={11} />
-            <PolarRadiusAxis stroke="#4b5563" fontSize={10} />
+            <PolarGrid stroke="#e5e7eb" />
+            <PolarAngleAxis dataKey="field" stroke="#6b7280" fontSize={11} />
+            <PolarRadiusAxis stroke="#d1d5db" fontSize={10} />
             <Tooltip
-              contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-              labelStyle={{ color: '#9ca3af' }}
-              itemStyle={{ color: '#e5e7eb' }}
+              contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+              labelStyle={{ color: '#374151' }}
+              itemStyle={{ color: '#1f2937' }}
             />
             <Radar
               name="Anomalies"
