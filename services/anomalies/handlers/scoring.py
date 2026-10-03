@@ -25,7 +25,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -203,12 +203,12 @@ def _trigger_scoring(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Create scoring job record
-    scoring_id = str(ulid.new())
+    scoring_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     scoring_metadata = {
-        "PK": f"SCORING#{scoring_id}",
-        "SK": "METADATA",
+        "pk": f"SCORING#{scoring_id}",
+        "sk": "METADATA",
         "id": scoring_id,
         "modelId": model_id,
         "datasetId": dataset_id,
@@ -247,8 +247,8 @@ def _trigger_scoring(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         result_items = []
         for record in classified_results:
             result_item = {
-                "PK": f"SCORING#{scoring_id}",
-                "SK": f"RECORD#{record['recordId']}",
+                "pk": f"SCORING#{scoring_id}",
+                "sk": f"RECORD#{record['recordId']}",
                 "scoringId": scoring_id,
                 "recordId": record["recordId"],
                 "reconstructionError": str(record["reconstructionError"]),
