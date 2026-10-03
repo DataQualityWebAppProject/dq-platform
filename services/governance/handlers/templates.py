@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -195,12 +195,12 @@ def _create_template(event: dict[str, Any], request_id: str) -> dict[str, Any]:
                 request_id=request_id,
             )
 
-    template_id = str(ulid.new())
+    template_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     item = {
-        "PK": f"TEMPLATE#{template_id}",
-        "SK": "METADATA",
+        "pk": f"TEMPLATE#{template_id}",
+        "sk": "METADATA",
         "id": template_id,
         "name": name,
         "description": description,
@@ -236,8 +236,8 @@ def _create_template(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         try:
             catalogs_db = DynamoHelper(CATALOGS_TABLE)
             catalogs_db.put_item(item={
-                "PK": f"CATALOG#{catalog_id}",
-                "SK": f"TEMPLATE#{template_id}",
+                "pk": f"CATALOG#{catalog_id}",
+                "sk": f"TEMPLATE#{template_id}",
                 "template_id": template_id,
                 "template_name": name,
                 "associated_at": now,
@@ -308,7 +308,7 @@ def _list_templates(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         catalogs_db = DynamoHelper(CATALOGS_TABLE)
         result = catalogs_db.query(
             pk_value=f"CATALOG#{catalog_id}",
-            sk_condition=Key("SK").begins_with("TEMPLATE#"),
+            sk_condition=Key("sk").begins_with("TEMPLATE#"),
             pagination=pagination,
         )
         # The association items don't have full template data, fetch templates
@@ -325,7 +325,7 @@ def _list_templates(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         # Scan all templates
         from boto3.dynamodb.conditions import Attr
         result = db.scan(
-            filter_expression=Attr("SK").eq("METADATA"),
+            filter_expression=Attr("sk").eq("METADATA"),
             pagination=pagination,
         )
         items = [_format_template(item) for item in result.get("items", [])]
@@ -471,7 +471,7 @@ def _delete_template(
         )
 
     # Delete with audit
-    delete_key = {"PK": f"TEMPLATE#{template_id}", "SK": "METADATA"}
+    delete_key = {"pk": f"TEMPLATE#{template_id}", "sk": "METADATA"}
     try:
         write_with_audit(
             operation_item=delete_key,
