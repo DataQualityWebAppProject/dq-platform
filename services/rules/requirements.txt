@@ -1,4 +1,1 @@
 boto3
-ulid-py
-python-jose[cryptography]
-requests
