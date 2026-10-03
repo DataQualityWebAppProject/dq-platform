@@ -1,162 +1,191 @@
-import { useState } from 'react'
-import { AlertTriangle, Brain, Zap } from 'lucide-react'
-import AnomalyRadarChart from '../components/Charts/AnomalyRadarChart'
+import { useState, useEffect } from 'react'
+import { ChevronDown, Loader2 } from 'lucide-react'
+import api from '../services/api'
+
+interface CatalogOption { id: string; name: string }
+interface TableOption { id: string; name: string }
+interface AnomalyResult {
+  recordIndex: number
+  reconstructionError: number
+  severity: string
+  affectedColumns: string[]
+}
 
 export default function Anomalies() {
-  const [trainingStatus] = useState<'idle' | 'training' | 'ready'>('ready')
+  const [catalogs, setCatalogs] = useState<CatalogOption[]>([])
+  const [tables, setTables] = useState<TableOption[]>([])
+  const [selectedCatalog, setSelectedCatalog] = useState('')
+  const [selectedTable, setSelectedTable] = useState('')
+  const [loadingTables, setLoadingTables] = useState(false)
+  const [training, setTraining] = useState(false)
+  const [error, setError] = useState('')
 
-  const stats = [
-    { label: 'Total Anomalies', value: '47', color: 'text-red-400', bg: 'bg-red-900/20', border: 'border-red-800/50' },
-    { label: 'Critical', value: '8', color: 'text-orange-400', bg: 'bg-orange-900/20', border: 'border-orange-800/50' },
-    { label: 'Resolved', value: '32', color: 'text-green-400', bg: 'bg-green-900/20', border: 'border-green-800/50' },
-    { label: 'Datasets Affected', value: '5', color: 'text-blue-400', bg: 'bg-blue-900/20', border: 'border-blue-800/50' },
-  ]
+  const [result, setResult] = useState<{
+    totalRecords: number
+    numericFeatures: number
+    featureNames: string[]
+    threshold: number
+    totalAnomalies: number
+    anomalyRate: number
+    anomalies: AnomalyResult[]
+    trainedAt: string
+  } | null>(null)
 
-  const radarData = [
-    { field: 'email', count: 12, fullMark: 20 },
-    { field: 'amount', count: 5, fullMark: 20 },
-    { field: 'price', count: 3, fullMark: 20 },
-    { field: 'age', count: 8, fullMark: 20 },
-    { field: 'date', count: 6, fullMark: 20 },
-    { field: 'name', count: 2, fullMark: 20 },
-    { field: 'phone', count: 7, fullMark: 20 },
-    { field: 'address', count: 4, fullMark: 20 },
-  ]
+  useEffect(() => {
+    api.get('/catalog', { params: { limit: 50 } }).then(res => {
+      setCatalogs((res.data?.items || []).map((c: any) => ({ id: c.id, name: c.name })))
+    }).catch(() => {})
+  }, [])
 
-  const anomalies = [
-    { id: '1', field: 'customer.email', type: 'Format Violation', severity: 'HIGH', count: 12, detected: '2025-01-15', score: 0.95 },
-    { id: '2', field: 'order.amount', type: 'Outlier', severity: 'MEDIUM', count: 5, detected: '2025-01-15', score: 0.78 },
-    { id: '3', field: 'product.price', type: 'Null Value', severity: 'LOW', count: 3, detected: '2025-01-14', score: 0.45 },
-    { id: '4', field: 'user.age', type: 'Range Violation', severity: 'HIGH', count: 8, detected: '2025-01-14', score: 0.91 },
-    { id: '5', field: 'order.date', type: 'Pattern Shift', severity: 'MEDIUM', count: 6, detected: '2025-01-14', score: 0.72 },
-    { id: '6', field: 'user.phone', type: 'Format Violation', severity: 'MEDIUM', count: 7, detected: '2025-01-13', score: 0.68 },
-  ]
+  useEffect(() => {
+    if (selectedCatalog) {
+      setLoadingTables(true)
+      setSelectedTable('')
+      setResult(null)
+      api.get(`/catalog/${selectedCatalog}/tables`).then(res => {
+        setTables((res.data?.items || []).map((t: any) => ({ id: t.id || t.name, name: t.name })))
+      }).catch(() => setTables([])).finally(() => setLoadingTables(false))
+    } else {
+      setTables([])
+      setSelectedTable('')
+    }
+  }, [selectedCatalog])
+
+  const handleTrain = async () => {
+    if (!selectedCatalog || !selectedTable) return
+    setTraining(true)
+    setError('')
+    setResult(null)
+
+    try {
+      const res = await api.post('/anomalies/train', {
+        catalogId: selectedCatalog,
+        tableId: selectedTable,
+      })
+      setResult(res.data)
+    } catch (err: any) {
+      setError(err?.response?.data?.error || err?.message || 'Training failed')
+    } finally {
+      setTraining(false)
+    }
+  }
+
+  const severityColor = (s: string) => {
+    if (s === 'critical') return 'bg-red-600 text-white'
+    if (s === 'high') return 'bg-red-100 text-red-800'
+    if (s === 'medium') return 'bg-yellow-100 text-yellow-800'
+    return 'bg-gray-100 text-gray-700'
+  }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Anomaly Detection</h1>
-          <p className="text-gray-400 text-sm mt-1">ML-powered anomaly detection and scoring</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-lg">
-            <Brain className="h-4 w-4 text-purple-400" />
-            <span className="text-xs text-gray-300">
-              Model: {trainingStatus === 'ready' ? 'Ready' : trainingStatus === 'training' ? 'Training...' : 'Not trained'}
-            </span>
+    <div className="p-6">
+      <h1 className="text-xl font-semibold text-gray-800 mb-1">Detección de Anomalías</h1>
+      <p className="text-sm text-gray-500 mb-6">Autoencoder que aprende patrones normales y detecta outliers</p>
+
+      {/* Controls */}
+      <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-4 mb-4">
+        <div className="grid grid-cols-3 gap-3 items-end">
+          <div>
+            <label className="block text-xs text-gray-600 mb-1">Catálogo</label>
+            <div className="relative">
+              <select value={selectedCatalog} onChange={(e) => setSelectedCatalog(e.target.value)}
+                className="w-full px-3 py-2 bg-white/60 border border-white/80 rounded-xl text-sm appearance-none">
+                <option value="">Seleccionar...</option>
+                {catalogs.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+              </select>
+              <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+            </div>
           </div>
-          <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-            <Zap className="h-4 w-4" />
-            Run Scoring
+          <div>
+            <label className="block text-xs text-gray-600 mb-1">Tabla</label>
+            <div className="relative">
+              <select value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}
+                className="w-full px-3 py-2 bg-white/60 border border-white/80 rounded-xl text-sm appearance-none disabled:bg-gray-100/60"
+                disabled={!selectedCatalog || loadingTables}>
+                <option value="">{loadingTables ? 'Cargando...' : 'Seleccionar...'}</option>
+                {tables.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              </select>
+              <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+            </div>
+          </div>
+          <button onClick={handleTrain} disabled={training || !selectedCatalog || !selectedTable}
+            className="px-4 py-2 btn-glass-primary text-white text-sm rounded-xl disabled:opacity-40 flex items-center gap-2 justify-center">
+            {training && <Loader2 className="h-4 w-4 animate-spin" />}
+            {training ? 'Entrenando...' : 'Entrenar y Detectar'}
           </button>
         </div>
+        <p className="text-[11px] text-gray-400 mt-2">El autoencoder se entrena con las columnas numéricas y detecta registros con patrones inusuales</p>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        {stats.map((stat) => (
-          <div key={stat.label} className={`${stat.bg} rounded-xl border ${stat.border} p-5`}>
-            <p className="text-sm text-gray-400">{stat.label}</p>
-            <p className={`text-3xl font-bold mt-1 ${stat.color}`}>{stat.value}</p>
+      {error && <div className="bg-red-50 border border-red-300 text-red-800 text-sm p-3 rounded mb-4">{error}</div>}
+
+      {/* Results */}
+      {result && (
+        <>
+          {/* Stats */}
+          <div className="grid grid-cols-5 gap-3 mb-4">
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-3">
+              <p className="text-[10px] text-gray-500 uppercase">Registros</p>
+              <p className="text-lg font-bold text-gray-900">{result.totalRecords}</p>
+            </div>
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-3">
+              <p className="text-[10px] text-gray-500 uppercase">Features</p>
+              <p className="text-lg font-bold text-gray-900">{result.numericFeatures}</p>
+            </div>
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-3">
+              <p className="text-[10px] text-gray-500 uppercase">Threshold</p>
+              <p className="text-lg font-bold text-gray-900">{result.threshold.toFixed(4)}</p>
+            </div>
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-3">
+              <p className="text-[10px] text-gray-500 uppercase">Anomalías</p>
+              <p className="text-lg font-bold text-red-700">{result.totalAnomalies}</p>
+            </div>
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-3">
+              <p className="text-[10px] text-gray-500 uppercase">Tasa</p>
+              <p className="text-lg font-bold text-gray-900">{result.anomalyRate}%</p>
+            </div>
           </div>
-        ))}
-      </div>
 
-      {/* Radar Chart + Training Config */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <AnomalyRadarChart data={radarData} title="Anomalies per Column" />
-
-        {/* Training Configuration */}
-        <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
-          <h3 className="text-sm font-medium text-gray-300 mb-4 flex items-center gap-2">
-            <Brain className="h-4 w-4 text-purple-400" />
-            Training Configuration
-          </h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-xs text-gray-400 mb-1">Algorithm</label>
-              <select className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option>Isolation Forest</option>
-                <option>Autoencoder</option>
-                <option>Local Outlier Factor</option>
-              </select>
+          {/* Anomaly Table */}
+          {result.anomalies.length > 0 ? (
+            <div className="glass-card rounded-2xl shadow-lg shadow-black/5 overflow-hidden">
+              <div className="px-4 py-3 border-b border-white/40 bg-white/20">
+                <p className="text-xs font-medium text-gray-700">Registros anómalos detectados ({result.totalAnomalies})</p>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 text-xs text-gray-500">
+                      <th className="text-left px-4 py-2">Fila</th>
+                      <th className="text-left px-4 py-2">Error</th>
+                      <th className="text-left px-4 py-2">Severidad</th>
+                      <th className="text-left px-4 py-2">Columnas afectadas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result.anomalies.map((a, i) => (
+                      <tr key={i} className="border-b border-white/30 hover:bg-white/30">
+                        <td className="px-4 py-2 font-mono text-xs">{a.recordIndex}</td>
+                        <td className="px-4 py-2 font-mono text-xs">{a.reconstructionError.toFixed(4)}</td>
+                        <td className="px-4 py-2">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase ${severityColor(a.severity)}`}>
+                            {a.severity}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-xs text-gray-600">{a.affectedColumns.join(', ')}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div>
-              <label className="block text-xs text-gray-400 mb-1">Contamination Threshold</label>
-              <input
-                type="number"
-                defaultValue={0.05}
-                step={0.01}
-                min={0.01}
-                max={0.5}
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
+          ) : (
+            <div className="bg-green-50 border border-green-200 rounded-md p-4 text-center">
+              <p className="text-sm text-green-800">No se detectaron anomalías en los datos</p>
             </div>
-            <div>
-              <label className="block text-xs text-gray-400 mb-1">Training Dataset</label>
-              <select className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option>customers.csv</option>
-                <option>orders.csv</option>
-                <option>All datasets</option>
-              </select>
-            </div>
-            <button className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-medium transition-colors">
-              Train Model
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Anomaly List */}
-      <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-        <div className="flex items-center gap-2 px-6 py-4 border-b border-gray-700">
-          <AlertTriangle className="h-4 w-4 text-amber-400" />
-          <h2 className="text-sm font-medium text-gray-300">Detected Anomalies</h2>
-        </div>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-gray-700">
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Field</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Type</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Severity</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Score</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Count</th>
-              <th className="text-left px-6 py-3 text-xs font-medium text-gray-400 uppercase">Detected</th>
-            </tr>
-          </thead>
-          <tbody>
-            {anomalies.map((a) => (
-              <tr key={a.id} className="border-b border-gray-700/50 hover:bg-gray-700/30">
-                <td className="px-6 py-4 text-sm text-white font-mono">{a.field}</td>
-                <td className="px-6 py-4 text-sm text-gray-300">{a.type}</td>
-                <td className="px-6 py-4 text-sm">
-                  <span className={`px-2 py-1 rounded text-xs ${
-                    a.severity === 'HIGH' ? 'bg-red-900/30 text-red-300' :
-                    a.severity === 'MEDIUM' ? 'bg-yellow-900/30 text-yellow-300' :
-                    'bg-gray-700 text-gray-300'
-                  }`}>
-                    {a.severity}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-1.5 bg-gray-700 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${a.score >= 0.8 ? 'bg-red-500' : a.score >= 0.6 ? 'bg-yellow-500' : 'bg-blue-500'}`}
-                        style={{ width: `${a.score * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-gray-400 text-xs">{a.score.toFixed(2)}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-400">{a.count}</td>
-                <td className="px-6 py-4 text-sm text-gray-400">{a.detected}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          )}
+        </>
+      )}
     </div>
   )
 }
