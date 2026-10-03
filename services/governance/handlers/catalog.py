@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -166,12 +166,12 @@ def _create_catalog(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Build catalog item
-    catalog_id = str(ulid.new())
+    catalog_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     catalog_item = {
-        "PK": f"CATALOG#{catalog_id}",
-        "SK": "METADATA",
+        "pk": f"CATALOG#{catalog_id}",
+        "sk": "METADATA",
         "id": catalog_id,
         "name": body["name"].strip(),
         "description": body.get("description", "").strip(),
@@ -430,7 +430,7 @@ def _scan_catalogs(
     from boto3.dynamodb.conditions import Attr
 
     # Always filter to only METADATA sort keys (catalog entries)
-    filter_expr = Attr("SK").eq("METADATA")
+    filter_expr = Attr("sk").eq("METADATA")
 
     if filter_name:
         filter_expr = filter_expr & Attr("name").contains(filter_name)
@@ -615,8 +615,8 @@ def _delete_catalog(
 
     # Delete with audit
     delete_key = {
-        "PK": f"CATALOG#{catalog_id}",
-        "SK": "METADATA",
+        "pk": f"CATALOG#{catalog_id}",
+        "sk": "METADATA",
     }
 
     try:
