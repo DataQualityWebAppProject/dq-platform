@@ -1,34 +1,91 @@
-# Paquete Kiro: benchmark NLQ para calidad de datos
+# DQ Platform — Data Quality Platform
 
-Este paquete convierte la propuesta de investigación en una especificación ejecutable para Kiro.
+Plataforma de gestión de calidad de datos en AWS. Permite subir datasets (CSV),
+definir reglas de calidad en lenguaje natural (interpretadas y convertidas a
+código Python por IA), ejecutar validaciones, generar scripts de limpieza, y
+producir reportes ejecutivos — todo con generación de código asistida por
+Amazon Bedrock (Nova Lite).
 
-## Uso recomendado
+## Arquitectura
 
-1. Copiar el contenido del paquete en la raíz del repositorio.
-2. Colocar los dos artículos de apoyo en `papers/` sin versionarlos si su licencia no permite redistribución.
-3. Abrir Kiro y usar un **Feature Spec Design-First**, porque ya existe una arquitectura multiagente y hay requisitos estrictos de seguridad, reproducibilidad y evaluación.
-4. Pegar `MASTER_PROMPT.md` en la sesión del Spec.
-5. Revisar y aprobar `requirements.md`, `design.md` y `tasks.md` antes de ejecutar tareas.
-6. Invocar `/nlq-quality-experiment` cuando se quiera auditar o ejecutar una fase experimental.
+```
+Browser → EC2 (FastAPI) → {
+  /auth/*                        → Cognito (server-side, httpOnly cookie)
+  /api/catalog, /api/rules,
+  /api/validations, /api/cleaning,
+  /api/reports                   → DynamoDB + S3 + Bedrock (directo)
+  /api/*  (fallback)              → API Gateway → Lambda
+}
+```
 
-Kiro genera Specs en tres artefactos: `requirements.md`, `design.md` y `tasks.md`. Los Skills se ubican en `.kiro/skills/<nombre>/SKILL.md` y el steering persistente en `.kiro/steering/`.
+- **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS v4, servido como
+  build estático desde el mismo servidor FastAPI.
+- **Backend**: FastAPI (`server/app.py`) corriendo en EC2 vía systemd,
+  con acceso directo a DynamoDB, S3 y Bedrock usando un IAM role de instancia.
+- **Infraestructura como código**: AWS CDK (Python) en `infra/`, con stacks
+  separados para VPC, Cognito, DynamoDB, S3, IAM, Lambda y API Gateway.
+- **Servicios backend desplegados como Lambda** (`services/`): gobernanza de
+  catálogos, reglas, validación, limpieza, anomalías y reportes — invocables
+  vía API Gateway como ruta alternativa al acceso directo del servidor.
 
-## Regla científica central
+## Estructura del repositorio
 
-El sistema no debe “producir resultados que confirmen el éxito”. Debe ejecutar un protocolo preregistrado, guardar resultados reales y decidir si QLoRA aporta valor. Un resultado negativo, nulo o mixto debe conservarse y reportarse.
+```
+infra/          CDK stacks (VPC, Cognito, DynamoDB, S3, IAM, Lambda, API Gateway)
+server/         Servidor FastAPI que sirve el frontend y expone la API
+frontend/       Aplicación React (Dashboard, Catalog, Rules, Validation, Cleaning, Reports)
+services/       Handlers Lambda por dominio (governance, rules, validation, cleaning, anomalies, reporting)
+dqplatform.service   Unit de systemd para correr el servidor FastAPI en EC2
+EC2_DEPLOYMENT.md    Detalles de la instancia EC2 y pasos de despliegue
+```
 
-## Alcance cuantitativo
+## Funcionalidades principales
 
-- 200 identificadores únicos de datasets públicos de Kaggle.
-- 1,000 reglas canónicas de calidad, exactamente cinco por dataset.
-- Objetivo inicial: 400 puntuales, 350 históricas y 250 ML-necesarias.
-- Cinco dimensiones lingüísticas por regla solo después de un piloto que compare 3, 5 y 7 paráfrasis.
-- Separación principal por dataset: 120 entrenamiento, 40 validación y 40 prueba.
-- Las reglas de prueba, sus paráfrasis, esquemas y oráculos no pueden contaminar entrenamiento, RAG o selección de hiperparámetros.
+- **Upload**: sube CSV/Parquet, detecta separador, infiere tipos de columna,
+  permite editar el esquema antes de confirmar.
+- **Rules**: define reglas de calidad en lenguaje natural con alcance de
+  Catálogo → Tabla → Columna; Nova Lite las interpreta y genera el código
+  Python de validación correspondiente.
+- **Validation**: ejecuta las reglas activas contra una tabla y muestra el
+  puntaje de calidad por regla y general.
+- **Cleaning**: genera (con IA) y ejecuta scripts de limpieza sobre los datos,
+  mostrando filas originales/limpiadas/eliminadas.
+- **Reports**: genera reportes ejecutivos en Markdown (renderizados como HTML)
+  a partir del estado del catálogo y sus reglas.
+- **Anomalies**: entrenamiento de un autoencoder para detección de anomalías
+  (pendiente de aprobación de cuota GPU en SageMaker).
 
-## Fuentes metodológicas incorporadas
+## Despliegue
 
-- Wang y Zhu (ICSE-NIER 2026), *Automatic Validation of LLM-Generated Code with Prompt Paraphrasing*: validación metamórfica, comparación por mayoría, experimento 3/5/7 y control de similitud entre paráfrasis.
-- Simbola et al. (2026), verificación de políticas NL sobre descriptores YAML: canonicalización, resolución de alcance, localización de evidencia, evaluación estructurada, ablaciones y taxonomía de errores lógicos.
-- Documentación de Kiro Specs y Skills: https://kiro.dev/docs/specs/ y https://kiro.dev/docs/skills/
-- API pública de Kaggle: https://www.kaggle.com/docs/api
+Ver [`EC2_DEPLOYMENT.md`](./EC2_DEPLOYMENT.md) para detalles de la instancia
+EC2 activa, cómo actualizar el despliegue, y cómo correr el servidor en local.
+
+Para desplegar/actualizar la infraestructura AWS:
+
+```bash
+cd infra
+pip install -r requirements.txt
+cdk deploy --all --require-approval never
+```
+
+Para construir el frontend:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+## Desarrollo local
+
+```bash
+# Backend
+cd server
+pip install -r requirements.txt
+uvicorn app:app --reload --port 8000
+
+# Frontend (en otra terminal)
+cd frontend
+npm install
+npm run dev
+```
