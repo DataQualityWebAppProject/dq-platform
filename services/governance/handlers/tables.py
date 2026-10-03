@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -139,12 +139,12 @@ def _create_table(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Build table item
-    table_id = str(ulid.new())
+    table_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     item = {
-        "PK": f"TABLE#{table_id}",
-        "SK": "METADATA",
+        "pk": f"TABLE#{table_id}",
+        "sk": "METADATA",
         "id": table_id,
         "name": name,
         "description": body.get("description", "").strip()[:500],
@@ -227,7 +227,7 @@ def _list_tables(event: dict[str, Any], request_id: str) -> dict[str, Any]:
 
         result = db.query(
             pk_value=f"CATALOG#{catalog_id}",
-            sk_condition=Key("SK").begins_with("TABLE#"),
+            sk_condition=Key("sk").begins_with("TABLE#"),
             pagination=pagination,
         )
     else:
@@ -235,7 +235,7 @@ def _list_tables(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         from boto3.dynamodb.conditions import Key, Attr
 
         result = db.scan(
-            filter_expression=Attr("SK").eq("METADATA") & Attr("PK").begins_with("TABLE#"),
+            filter_expression=Attr("sk").eq("METADATA") & Attr("pk").begins_with("TABLE#"),
             pagination=pagination,
         )
 
@@ -363,7 +363,7 @@ def _delete_table(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Delete with audit
-    key_item = {"PK": f"TABLE#{table_id}", "SK": "METADATA"}
+    key_item = {"pk": f"TABLE#{table_id}", "sk": "METADATA"}
     write_with_audit(
         operation_item=key_item,
         operation_table=CATALOGS_TABLE,
@@ -453,8 +453,8 @@ def _associate_table_to_catalog(event: dict[str, Any], request_id: str) -> dict[
 
     # 1. Create catalog→table association item
     association_item = {
-        "PK": f"CATALOG#{catalog_id}",
-        "SK": f"TABLE#{table_id}",
+        "pk": f"CATALOG#{catalog_id}",
+        "sk": f"TABLE#{table_id}",
         "table_id": table_id,
         "table_name": table.get("name", ""),
         "associated_at": now,
