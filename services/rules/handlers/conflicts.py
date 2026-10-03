@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any, Optional
@@ -158,7 +158,7 @@ def _detect_conflicts(event: dict[str, Any], request_id: str) -> dict[str, Any]:
     rules_db = DynamoHelper(RULES_TABLE_NAME)
     from boto3.dynamodb.conditions import Attr
 
-    filter_expr = Attr("SK").eq("METADATA") & Attr("status").eq("active")
+    filter_expr = Attr("sk").eq("METADATA") & Attr("status").eq("active")
     all_rules = _fetch_all_active_rules(rules_db, filter_expr)
 
     # Detect conflicts
@@ -370,7 +370,7 @@ def _build_conflict(rule_a: dict[str, Any], rule_b: dict[str, Any]) -> dict[str,
     Returns:
         Conflict dict.
     """
-    conflict_id = str(ulid.new())
+    conflict_id = str(uuid.uuid4())
 
     return {
         "conflictId": conflict_id,
@@ -529,8 +529,8 @@ def _resolve_conflict(
     rule_pair_key = "|".join(sorted(rule_ids))
 
     resolution_item = {
-        "PK": f"CONFLICT#{conflict_id}",
-        "SK": "METADATA",
+        "pk": f"CONFLICT#{conflict_id}",
+        "sk": "METADATA",
         "id": conflict_id,
         "rulePairKey": rule_pair_key,
         "ruleIds": rule_ids,
