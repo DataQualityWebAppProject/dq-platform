@@ -1,0 +1,15 @@
+[Unit]
+Description=DQ Platform FastAPI Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/dqplatform
+Environment="AWS_DEFAULT_REGION=us-east-1"
+ExecStart=/opt/dqplatform/venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 80
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
