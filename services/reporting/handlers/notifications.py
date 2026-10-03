@@ -21,7 +21,7 @@ import json
 import logging
 import os
 import time
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -192,8 +192,8 @@ def _configure_recipients(event: dict[str, Any], request_id: str) -> dict[str, A
     # Store recipient configuration
     now = datetime.now(timezone.utc).isoformat()
     recipient_item = {
-        "PK": f"RECIPIENTS#{event_type}",
-        "SK": "CONFIG",
+        "pk": f"RECIPIENTS#{event_type}",
+        "sk": "CONFIG",
         "eventType": event_type,
         "recipients": recipients,
         "updatedAt": now,
@@ -260,7 +260,7 @@ def _get_recipients(event: dict[str, Any], request_id: str) -> dict[str, Any]:
     # Get all event type configurations
     from boto3.dynamodb.conditions import Attr
     result = db.scan(
-        filter_expression=Attr("SK").eq("CONFIG"),
+        filter_expression=Attr("sk").eq("CONFIG"),
     )
 
     configs = [
@@ -305,7 +305,7 @@ def _list_notifications(event: dict[str, Any], request_id: str) -> dict[str, Any
     db = DynamoHelper(NOTIFICATIONS_TABLE)
 
     from boto3.dynamodb.conditions import Attr
-    filter_expr = Attr("SK").eq("METADATA")
+    filter_expr = Attr("sk").eq("METADATA")
     if filter_event_type:
         filter_expr = filter_expr & Attr("eventType").eq(filter_event_type)
 
@@ -379,12 +379,12 @@ def send_notification(
     results = []
 
     for recipient in recipients:
-        notification_id = str(ulid.new())
+        notification_id = str(uuid.uuid4())
         now = datetime.now(timezone.utc).isoformat()
 
         notification_record = {
-            "PK": f"NOTIFICATION#{notification_id}",
-            "SK": "METADATA",
+            "pk": f"NOTIFICATION#{notification_id}",
+            "sk": "METADATA",
             "id": notification_id,
             "eventType": event_type,
             "recipient": recipient,
