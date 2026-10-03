@@ -13,24 +13,24 @@ interface QualityLineChartProps {
 }
 
 export default function QualityLineChart({ data, title, lines }: QualityLineChartProps) {
-  const defaultLines = [{ dataKey: 'score', color: '#3b82f6', name: 'Quality Score' }]
+  const defaultLines = [{ dataKey: 'score', color: '#7c3aed', name: 'Quality Score' }]
   const lineConfig = lines || defaultLines
 
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
-      {title && <h3 className="text-sm font-medium text-gray-300 mb-4">{title}</h3>}
+    <>
+      {title && <h3 className="text-base font-bold text-gray-800 tracking-tight mb-4">{title}</h3>}
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="date" stroke="#6b7280" fontSize={12} />
-            <YAxis stroke="#6b7280" fontSize={12} domain={[0, 100]} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis dataKey="date" stroke="#9ca3af" fontSize={12} />
+            <YAxis stroke="#9ca3af" fontSize={12} domain={[0, 100]} />
             <Tooltip
-              contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-              labelStyle={{ color: '#9ca3af' }}
-              itemStyle={{ color: '#e5e7eb' }}
+              contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+              labelStyle={{ color: '#374151' }}
+              itemStyle={{ color: '#1f2937' }}
             />
-            <Legend wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }} />
+            <Legend wrapperStyle={{ fontSize: '12px', color: '#6b7280' }} />
             {lineConfig.map((line) => (
               <Line
                 key={line.dataKey}
@@ -46,6 +46,6 @@ export default function QualityLineChart({ data, title, lines }: QualityLineChar
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   )
 }
