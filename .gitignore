@@ -20,3 +20,12 @@ ec2-dynamo-policy.json
 # Build artifacts
 frontend/tsconfig.tsbuildinfo
 
+# Residual/duplicate CDK app superseded by infra/
+dq-platform-infra/
+
+# Editor/tool configs (local only)
+.vscode/
+.kiro/
+.claude/
+
+
