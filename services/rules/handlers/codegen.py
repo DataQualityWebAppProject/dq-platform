@@ -57,8 +57,8 @@ SCRIPTS_BUCKET = os.environ.get("SCRIPTS_BUCKET", "dq-scripts-108782054634")
 SAGEMAKER_ENDPOINT = os.environ.get("SAGEMAKER_ENDPOINT", "")
 
 # Bedrock model IDs
-BEDROCK_HAIKU_MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
-BEDROCK_SONNET_MODEL = "anthropic.claude-3-sonnet-20240229-v1:0"
+BEDROCK_HAIKU_MODEL = "amazon.nova-lite-v1:0"
+BEDROCK_SONNET_MODEL = "amazon.nova-lite-v1:0"
 
 # Pipeline configuration
 MAX_ATTEMPTS = 3
@@ -418,7 +418,7 @@ def _invoke_bedrock(
     model_id: str,
     target_fields: list[str],
 ) -> str:
-    """Invoke Bedrock Claude model for code generation.
+    """Invoke Bedrock Amazon Nova Lite model for code generation.
 
     Args:
         structured_json: The rule's structured JSON definition.
@@ -436,13 +436,11 @@ def _invoke_bedrock(
     prompt = _build_codegen_prompt(structured_json, target_fields)
 
     request_body = json.dumps({
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": 2048,
-        "temperature": 0.2,
+        "inferenceConfig": {"maxTokens": 2048, "temperature": 0.2},
         "messages": [
             {
                 "role": "user",
-                "content": prompt,
+                "content": [{"text": prompt}],
             }
         ],
     })
@@ -456,13 +454,13 @@ def _invoke_bedrock(
 
     response_body = json.loads(response["body"].read())
 
-    # Extract text from Claude 3 response
-    content = response_body.get("content", [])
+    # Extract text from Nova Lite response format
+    output = response_body.get("output", {})
+    message = output.get("message", {})
+    content = message.get("content", [])
     if content and isinstance(content, list):
-        for block in content:
-            if block.get("type") == "text":
-                raw_text = block.get("text", "")
-                return _extract_python_code(raw_text)
+        raw_text = content[0].get("text", "")
+        return _extract_python_code(raw_text)
 
     return ""
 
