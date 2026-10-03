@@ -1,8 +1,7 @@
 """JWT authentication and role-based access control for the Data Quality Platform.
 
 Provides:
-- JWT token validation against Cognito (signature, expiration, issuer)
-- Role extraction from cognito:groups
+- Role extraction from cognito:groups (via API Gateway JWT authorizer context)
 - Role-based access control decorators
 - RBAC permission matrix
 
@@ -10,23 +9,17 @@ Roles:
 - AdminDatos: Full CRUD access to all platform resources
 - AnalistaDatos: Read access + trigger operations (validation, scoring, cleaning, reports)
 
-Uses python-jose for JWT verification and fetches JWKS from Cognito.
+JWT validation is handled by API Gateway's built-in JWT authorizer.
+Lambda functions only extract claims from the event context.
 
 Requirements: 1.3, 2.1, 2.2, 2.3, 2.6
 """
 
 from __future__ import annotations
 
-import functools
-import json
 import logging
 import os
-import time
 from typing import Any, Callable, Optional
-
-import requests
-from jose import jwt, jwk, JWTError
-from jose.utils import base64url_decode
 
 from services.shared.errors import unauthorized_error, forbidden_error
 
@@ -38,19 +31,10 @@ AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 COGNITO_USER_POOL_ID = os.environ.get("COGNITO_USER_POOL_ID", "us-east-1_8KvqRmGSN")
 COGNITO_CLIENT_ID = os.environ.get("COGNITO_CLIENT_ID", "4q5odh7hskaevkpphb4p8jgl3j")
 
-# Cognito JWKS URL
-COGNITO_ISSUER = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{COGNITO_USER_POOL_ID}"
-JWKS_URL = f"{COGNITO_ISSUER}/.well-known/jwks.json"
-
 # Valid platform roles
 ADMIN_ROLE = "AdminDatos"
 ANALYST_ROLE = "AnalistaDatos"
 VALID_ROLES = {ADMIN_ROLE, ANALYST_ROLE}
-
-# JWKS cache (avoid fetching on every request)
-_jwks_cache: Optional[dict[str, Any]] = None
-_jwks_cache_time: float = 0
-_JWKS_CACHE_TTL = 3600  # 1 hour
 
 # ─── RBAC Permission Matrix ──────────────────────────────────────────────
 
@@ -119,114 +103,6 @@ class UserClaims:
         return self.sub
 
 
-# ─── JWKS Fetching ────────────────────────────────────────────────────────
-
-
-def _get_jwks() -> dict[str, Any]:
-    """Fetch and cache JWKS keys from Cognito.
-
-    Returns:
-        The JWKS key set as a dict.
-
-    Raises:
-        RuntimeError: If JWKS cannot be fetched.
-    """
-    global _jwks_cache, _jwks_cache_time
-
-    now = time.time()
-    if _jwks_cache and (now - _jwks_cache_time) < _JWKS_CACHE_TTL:
-        return _jwks_cache
-
-    try:
-        response = requests.get(JWKS_URL, timeout=5)
-        response.raise_for_status()
-        _jwks_cache = response.json()
-        _jwks_cache_time = now
-        logger.debug(f"Fetched JWKS from {JWKS_URL}")
-        return _jwks_cache
-    except (requests.RequestException, ValueError) as e:
-        logger.error(f"Failed to fetch JWKS from {JWKS_URL}: {e}")
-        if _jwks_cache:
-            # Use stale cache if available
-            return _jwks_cache
-        raise RuntimeError(f"Unable to fetch JWKS: {e}")
-
-
-def _get_signing_key(token: str) -> dict[str, Any]:
-    """Get the signing key for a given JWT token from the JWKS.
-
-    Args:
-        token: The JWT token string.
-
-    Returns:
-        The matching JWK key dict.
-
-    Raises:
-        JWTError: If no matching key is found.
-    """
-    jwks = _get_jwks()
-    headers = jwt.get_unverified_headers(token)
-    kid = headers.get("kid")
-
-    if not kid:
-        raise JWTError("Token header missing 'kid'")
-
-    for key in jwks.get("keys", []):
-        if key.get("kid") == kid:
-            return key
-
-    raise JWTError(f"No matching key found for kid: {kid}")
-
-
-# ─── JWT Validation ───────────────────────────────────────────────────────
-
-
-def validate_jwt_token(token: str) -> dict[str, Any]:
-    """Verify a Cognito JWT token (signature, expiration, issuer).
-
-    Validates:
-    - Token signature against Cognito JWKS public keys
-    - Token expiration (exp claim)
-    - Token issuer matches configured Cognito User Pool
-    - Token audience (client_id) for id tokens
-
-    Args:
-        token: The JWT token string (without 'Bearer ' prefix).
-
-    Returns:
-        The decoded token claims as a dict.
-
-    Raises:
-        JWTError: If token validation fails (invalid signature, expired, wrong issuer).
-    """
-    # Strip 'Bearer ' prefix if present
-    if token.startswith("Bearer "):
-        token = token[7:]
-
-    try:
-        signing_key = _get_signing_key(token)
-
-        # Decode and verify the token
-        claims = jwt.decode(
-            token,
-            signing_key,
-            algorithms=["RS256"],
-            audience=COGNITO_CLIENT_ID,
-            issuer=COGNITO_ISSUER,
-            options={
-                "verify_exp": True,
-                "verify_aud": True,
-                "verify_iss": True,
-            },
-        )
-
-        return claims
-
-    except JWTError as e:
-        logger.warning(f"JWT validation failed: {e}")
-        raise
-
-
 # ─── Role Extraction ──────────────────────────────────────────────────────
 
 
@@ -245,7 +121,9 @@ def get_user_role(token_claims: dict[str, Any]) -> str:
     groups_raw = token_claims.get("cognito:groups", "")
 
     if isinstance(groups_raw, str):
-        groups = [g.strip() for g in groups_raw.split(",") if g.strip()]
+        # API Gateway may pass groups as "[AdminDatos]" or "AdminDatos" or "AdminDatos,AnalistaDatos"
+        cleaned = groups_raw.strip().strip("[]")
+        groups = [g.strip().strip('"').strip("'") for g in cleaned.split(",") if g.strip()]
     elif isinstance(groups_raw, list):
         groups = groups_raw
     else:
@@ -295,7 +173,8 @@ def extract_user_claims(event: dict[str, Any]) -> Optional[UserClaims]:
         # Extract groups
         groups_raw = claims.get("cognito:groups", "")
         if isinstance(groups_raw, str):
-            groups = [g.strip() for g in groups_raw.split(",") if g.strip()]
+            cleaned = groups_raw.strip().strip("[]")
+            groups = [g.strip().strip('"').strip("'") for g in cleaned.split(",") if g.strip()]
         elif isinstance(groups_raw, list):
             groups = groups_raw
         else:
@@ -344,7 +223,7 @@ def is_authorized(role: str, operation: str, resource_type: str) -> bool:
 # ─── Role Enforcement (Function-based) ────────────────────────────────────
 
 
-def require_role_check(
+def require_role(
     event: dict[str, Any],
     allowed_roles: list[str],
     request_id: str = "",
@@ -392,43 +271,8 @@ def require_role_check(
     return claims, None
 
 
-# ─── Role Enforcement (Decorator) ────────────────────────────────────────
-
-
-def require_role(allowed_roles: list[str]) -> Callable:
-    """Decorator to enforce role-based access on Lambda handler functions.
-
-    The decorated handler must accept (event, context) as parameters.
-    If the user does not have an allowed role, a 403 response is returned
-    without invoking the handler.
-
-    Args:
-        allowed_roles: List of roles permitted for this handler.
-
-    Returns:
-        Decorator function.
-
-    Usage:
-        @require_role([ADMIN_ROLE])
-        def handler(event, context, user_claims):
-            ...
-    """
-
-    def decorator(func: Callable) -> Callable:
-        @functools.wraps(func)
-        def wrapper(event: dict[str, Any], context: Any) -> dict[str, Any]:
-            request_id = get_request_id(event)
-            claims, error = require_role_check(event, allowed_roles, request_id)
-
-            if error:
-                return error
-
-            # Pass user_claims as third argument to the handler
-            return func(event, context, claims)
-
-        return wrapper
-
-    return decorator
+# Alias for backward compatibility
+require_role_check = require_role
 
 
 # ─── Utility Functions ────────────────────────────────────────────────────
