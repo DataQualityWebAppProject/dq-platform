@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -57,7 +57,7 @@ GLUE_JOB_NAME = os.environ.get("CLEANING_GLUE_JOB", "dq-cleaning-job")
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 
 # Bedrock model for script generation
-BEDROCK_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+BEDROCK_MODEL_ID = "amazon.nova-lite-v1:0"
 BEDROCK_MAX_TOKENS = 4096
 BEDROCK_TIMEOUT = 30  # 30 seconds max
 
@@ -130,7 +130,7 @@ def _parse_path(path: str) -> tuple[Optional[str], bool]:
 
 
 def _generate_script(event: dict[str, Any], request_id: str) -> dict[str, Any]:
-    """Generate a cleaning script using Bedrock Claude 3 Haiku.
+    """Generate a cleaning script using Bedrock Amazon Nova Lite.
 
     Expected body:
     {
@@ -204,12 +204,12 @@ def _generate_script(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Create cleaning job record (status: pending_approval)
-    job_id = str(ulid.new())
+    job_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     job_item = {
-        "PK": f"CLEANING#{job_id}",
-        "SK": "METADATA",
+        "pk": f"CLEANING#{job_id}",
+        "sk": "METADATA",
         "id": job_id,
         "datasetId": dataset_id,
         "datasetS3Path": dataset_s3_path,
@@ -420,7 +420,7 @@ def _execute_cleaning(
 def _invoke_bedrock_for_script(
     issues: list[str], dataset_s3_path: str
 ) -> tuple[str, str]:
-    """Invoke Bedrock Claude 3 Haiku to generate a cleaning script.
+    """Invoke Bedrock Amazon Nova Lite to generate a cleaning script.
 
     Args:
         issues: List of data quality issues to address.
@@ -457,12 +457,10 @@ Format your response as JSON:
 }}"""
 
     request_body = json.dumps({
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": BEDROCK_MAX_TOKENS,
+        "inferenceConfig": {"maxTokens": BEDROCK_MAX_TOKENS, "temperature": 0.2},
         "messages": [
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": [{"text": prompt}]}
         ],
-        "temperature": 0.2,
     })
 
     response = bedrock_client.invoke_model(
@@ -473,7 +471,12 @@ Format your response as JSON:
     )
 
     response_body = json.loads(response["body"].read().decode("utf-8"))
-    content = response_body.get("content", [{}])[0].get("text", "")
+
+    # Extract text from Nova Lite response format
+    output = response_body.get("output", {})
+    message = output.get("message", {})
+    content_blocks = message.get("content", [])
+    content = content_blocks[0].get("text", "") if content_blocks else ""
 
     # Parse the JSON response
     try:
