@@ -27,9 +27,13 @@ class DqApiGatewayStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # --- Cognito Configuration ---
-        cognito_user_pool_id = "us-east-1_8KvqRmGSN"
-        cognito_client_id = "4q5odh7hskaevkpphb4p8jgl3j"
+        # --- Cognito Configuration (read dynamically — never hardcode, pool can be recreated) ---
+        cognito_user_pool_id = ssm.StringParameter.from_string_parameter_name(
+            self, "ImportedUserPoolId", "/dq-platform/cognito-user-pool-id"
+        ).string_value
+        cognito_client_id = ssm.StringParameter.from_string_parameter_name(
+            self, "ImportedUserPoolClientId", "/dq-platform/cognito-user-pool-client-id"
+        ).string_value
         issuer = f"https://cognito-idp.us-east-1.amazonaws.com/{cognito_user_pool_id}"
 
         # --- JWT Authorizer ---
