@@ -24,7 +24,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -55,7 +55,7 @@ SCORING_TABLE = os.environ.get("SCORING_TABLE", "dq-anomaly-scores")
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 
 # Bedrock model for report generation
-BEDROCK_MODEL_ID = "anthropic.claude-3-sonnet-20240229-v1:0"
+BEDROCK_MODEL_ID = "amazon.nova-lite-v1:0"
 BEDROCK_MAX_TOKENS = 8192
 BEDROCK_TIMEOUT = 30  # 30 seconds max
 
@@ -156,12 +156,12 @@ def _generate_report(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Create report record (status: draft)
-    report_id = str(ulid.new())
+    report_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     report_item = {
-        "PK": f"REPORT#{report_id}",
-        "SK": "METADATA",
+        "pk": f"REPORT#{report_id}",
+        "sk": "METADATA",
         "id": report_id,
         "title": title,
         "reportType": report_type,
@@ -178,8 +178,8 @@ def _generate_report(event: dict[str, Any], request_id: str) -> dict[str, Any]:
 
     # Also store version 1
     version_item = {
-        "PK": f"REPORT#{report_id}",
-        "SK": "VERSION#1",
+        "pk": f"REPORT#{report_id}",
+        "sk": "VERSION#1",
         "version": 1,
         "content": report_content,
         "editedAt": now,
@@ -234,7 +234,7 @@ def _gather_report_context(dataset_id: Optional[str]) -> dict[str, Any]:
     # Fetch recent validation runs
     try:
         validation_db = DynamoHelper(VALIDATION_RUNS_TABLE)
-        filter_expr = Attr("SK").eq("METADATA") & Attr("status").eq("completed")
+        filter_expr = Attr("sk").eq("METADATA") & Attr("status").eq("completed")
         if dataset_id:
             filter_expr = filter_expr & Attr("datasetId").eq(dataset_id)
 
@@ -256,7 +256,7 @@ def _gather_report_context(dataset_id: Optional[str]) -> dict[str, Any]:
     # Fetch recent anomaly scores
     try:
         scoring_db = DynamoHelper(SCORING_TABLE)
-        filter_expr = Attr("SK").eq("METADATA") & Attr("status").eq("completed")
+        filter_expr = Attr("sk").eq("METADATA") & Attr("status").eq("completed")
         pagination = PaginationParams(page_size=10, next_token=None)
         result = scoring_db.scan(filter_expression=filter_expr, pagination=pagination)
 
@@ -277,7 +277,7 @@ def _gather_report_context(dataset_id: Optional[str]) -> dict[str, Any]:
 def _invoke_bedrock_for_report(
     title: str, report_type: str, context_data: dict[str, Any]
 ) -> str:
-    """Invoke Bedrock Claude 3 Sonnet to generate a report.
+    """Invoke Bedrock Amazon Nova Lite to generate a report.
 
     Args:
         title: Report title.
@@ -326,12 +326,10 @@ Generate a comprehensive report in Markdown format with the following sections:
 Make the report professional, data-driven, and actionable. Use specific numbers from the context data where available. If no data is available for a section, note that data collection is in progress."""
 
     request_body = json.dumps({
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": BEDROCK_MAX_TOKENS,
+        "inferenceConfig": {"maxTokens": BEDROCK_MAX_TOKENS, "temperature": 0.3},
         "messages": [
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": [{"text": prompt}]}
         ],
-        "temperature": 0.3,
     })
 
     response = bedrock_client.invoke_model(
@@ -342,7 +340,12 @@ Make the report professional, data-driven, and actionable. Use specific numbers 
     )
 
     response_body = json.loads(response["body"].read().decode("utf-8"))
-    content = response_body.get("content", [{}])[0].get("text", "")
+
+    # Extract text from Nova Lite response format
+    output = response_body.get("output", {})
+    message = output.get("message", {})
+    content_blocks = message.get("content", [])
+    content = content_blocks[0].get("text", "") if content_blocks else ""
 
     return content
 
