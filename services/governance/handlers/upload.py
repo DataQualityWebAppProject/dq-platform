@@ -25,7 +25,7 @@ import io
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -202,7 +202,7 @@ def _handle_initiate_upload(
         )
 
     # Generate dataset ID and S3 key
-    dataset_id = str(ulid.new())
+    dataset_id = str(uuid.uuid4())
     s3_key = f"{S3_RAW_PREFIX}{catalog_id}/{dataset_id}/{file_name}"
     content_type = get_content_type(file_name)
 
@@ -231,8 +231,8 @@ def _handle_initiate_upload(
     # Store upload metadata in DynamoDB
     now = datetime.now(timezone.utc).isoformat()
     upload_metadata = {
-        "PK": f"UPLOAD#{upload_id}",
-        "SK": "METADATA",
+        "pk": f"UPLOAD#{upload_id}",
+        "sk": "METADATA",
         "uploadId": upload_id,
         "datasetId": dataset_id,
         "catalogId": catalog_id,
@@ -363,8 +363,8 @@ def _handle_complete_upload(
     catalog_id = upload_meta["catalogId"]
 
     dataset_item = {
-        "PK": f"CATALOG#{catalog_id}",
-        "SK": f"DATASET#{dataset_id}",
+        "pk": f"CATALOG#{catalog_id}",
+        "sk": f"DATASET#{dataset_id}",
         "datasetId": dataset_id,
         "catalogId": catalog_id,
         "fileName": upload_meta["fileName"],
@@ -543,7 +543,7 @@ def _handle_dataset_preview(
 
     from boto3.dynamodb.conditions import Attr
     result = dynamo.scan(
-        filter_expression=Attr("datasetId").eq(dataset_id) & Attr("SK").begins_with("DATASET#"),
+        filter_expression=Attr("datasetId").eq(dataset_id) & Attr("sk").begins_with("DATASET#"),
     )
 
     items = result.get("items", [])
