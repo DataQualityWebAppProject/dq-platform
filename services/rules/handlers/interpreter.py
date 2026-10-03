@@ -1,9 +1,9 @@
 """Rule Interpreter Lambda handler for the Rules Engine Service.
 
-Handles natural language rule interpretation via Amazon Bedrock Claude 3 Haiku:
+Handles natural language rule interpretation via Amazon Bedrock Nova Lite:
 - POST /rules/interpret → interpret natural language into structured JSON
 
-Uses Bedrock Claude 3 Haiku (anthropic.claude-3-haiku-20240307-v1:0) to:
+Uses Amazon Nova Lite (amazon.nova-lite-v1:0) to:
 1. Accept natural language text (1-500 chars) + scope + target IDs
 2. Build prompt for interpretation
 3. Parse response into RuleDefinition structure
@@ -38,7 +38,7 @@ logger.setLevel(logging.INFO)
 
 # Configuration
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
-BEDROCK_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+BEDROCK_MODEL_ID = "amazon.nova-lite-v1:0"
 BEDROCK_TIMEOUT = 5  # seconds
 
 # Validation limits
@@ -61,7 +61,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     """Lambda entry point for rule interpretation.
 
     Accepts POST /rules/interpret with natural language text and scope,
-    invokes Bedrock Claude 3 Haiku, and returns structured JSON + preview.
+    invokes Bedrock Amazon Nova Lite, and returns structured JSON + preview.
 
     Args:
         event: API Gateway Lambda proxy event.
@@ -164,7 +164,7 @@ def _interpret_rule(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         column_id=column_id,
     )
 
-    # Invoke Bedrock Claude 3 Haiku
+    # Invoke Bedrock Amazon Nova Lite
     try:
         bedrock_response = _invoke_bedrock(prompt)
     except ReadTimeoutError:
@@ -271,7 +271,7 @@ def _build_interpretation_prompt(
     table_id: str = "",
     column_id: str = "",
 ) -> str:
-    """Build the prompt for Bedrock Claude 3 Haiku to interpret a rule.
+    """Build the prompt for Bedrock Amazon Nova Lite to interpret a rule.
 
     Args:
         text: The natural language rule description.
@@ -309,7 +309,7 @@ def _build_interpretation_prompt(
 
 
 def _invoke_bedrock(prompt: str) -> str:
-    """Invoke Bedrock Claude 3 Haiku with the interpretation prompt.
+    """Invoke Bedrock Amazon Nova Lite with the interpretation prompt.
 
     Args:
         prompt: The prompt to send to the model.
@@ -324,13 +324,11 @@ def _invoke_bedrock(prompt: str) -> str:
     client = boto3.client("bedrock-runtime", config=_bedrock_config)
 
     request_body = json.dumps({
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": 1024,
-        "temperature": 0.1,
+        "inferenceConfig": {"maxTokens": 1024, "temperature": 0.1},
         "messages": [
             {
                 "role": "user",
-                "content": prompt,
+                "content": [{"text": prompt}],
             }
         ],
     })
@@ -344,12 +342,12 @@ def _invoke_bedrock(prompt: str) -> str:
 
     response_body = json.loads(response["body"].read())
 
-    # Extract text from Claude 3 response format
-    content = response_body.get("content", [])
+    # Extract text from Nova Lite response format
+    output = response_body.get("output", {})
+    message = output.get("message", {})
+    content = message.get("content", [])
     if content and isinstance(content, list):
-        for block in content:
-            if block.get("type") == "text":
-                return block.get("text", "")
+        return content[0].get("text", "")
 
     return ""
 
