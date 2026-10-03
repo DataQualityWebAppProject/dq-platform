@@ -324,7 +324,7 @@ def _update_job_status(
 
     try:
         table.update_item(
-            Key={"PK": f"CLEANING#{job_id}", "SK": "METADATA"},
+            Key={"pk": f"CLEANING#{job_id}", "sk": "METADATA"},
             UpdateExpression=update_expr,
             ExpressionAttributeValues=expr_values,
             ExpressionAttributeNames=expr_names,
