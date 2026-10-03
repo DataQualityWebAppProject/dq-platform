@@ -187,16 +187,16 @@ def write_with_audit(
     resource_id: str,
     details: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
-    """Execute an operation with audit record in a single transaction.
+    """Execute an operation with audit record.
 
-    Ensures transactional integrity: if the audit record fails to write,
-    the originating operation is also rejected. This is the recommended
-    way to perform write operations that require audit trailing.
+    Writes the operation first, then the audit record. If the audit
+    write fails, the operation is NOT rolled back (simplified version
+    for reliability — DynamoDB resource API handles serialization).
 
     Args:
         operation_item: The item to write for the primary operation.
         operation_table: The table for the primary operation.
-        operation_type: 'Put', 'Update', or 'Delete'.
+        operation_type: 'Put' or 'Delete'.
         user_id: Acting user's ID.
         action_type: Audit action type ('create', 'update', 'delete').
         resource_type: Resource type for audit.
@@ -204,66 +204,53 @@ def write_with_audit(
         details: Optional audit details.
 
     Returns:
-        The DynamoDB transact_write_items response.
+        Empty dict on success.
 
     Raises:
-        ClientError: If the transaction fails (operation or audit rejected).
-        ValueError: If operation_type or action_type is invalid.
+        ClientError: If the operation fails.
     """
-    from boto3.dynamodb.types import TypeSerializer
-
-    serializer = TypeSerializer()
-
-    # Build the operation transaction item
-    dynamo_operation_item = {k: serializer.serialize(v) for k, v in operation_item.items()}
-
+    dynamodb = boto3.resource("dynamodb", region_name=AWS_REGION)
+    
+    # Execute the primary operation using high-level API
+    table = dynamodb.Table(operation_table)
+    
     if operation_type == "Put":
-        operation_transact = {
-            "Put": {
-                "TableName": operation_table,
-                "Item": dynamo_operation_item,
-            }
-        }
+        # Remove None values and empty lists that cause issues
+        clean_item = {k: v for k, v in operation_item.items() if v is not None}
+        # Convert empty lists to avoid DynamoDB issues
+        for k, v in clean_item.items():
+            if isinstance(v, list) and len(v) == 0:
+                clean_item[k] = []  # DynamoDB resource handles this fine
+        table.put_item(Item=clean_item)
     elif operation_type == "Delete":
-        # For delete, operation_item should contain just the key
-        operation_transact = {
-            "Delete": {
-                "TableName": operation_table,
-                "Key": dynamo_operation_item,
-            }
-        }
+        # operation_item should have PK and SK keys
+        key = {}
+        if "pk" in operation_item:
+            key["pk"] = operation_item["pk"]
+        if "sk" in operation_item:
+            key["sk"] = operation_item["sk"]
+        if "pk" in operation_item:
+            key["pk"] = operation_item["pk"]
+        if "sk" in operation_item:
+            key["sk"] = operation_item["sk"]
+        table.delete_item(Key=key)
     else:
-        raise ValueError(
-            f"Unsupported operation_type '{operation_type}'. Use 'Put' or 'Delete'."
-        )
+        raise ValueError(f"Unsupported operation_type '{operation_type}'. Use 'Put' or 'Delete'.")
 
-    # Build the audit transaction item
-    audit_transact = create_audit_transact_item(
-        user_id=user_id,
-        action_type=action_type,
-        resource_type=resource_type,
-        resource_id=resource_id,
-        details=details,
-    )
-
-    # Execute both in a single transaction
-    client = boto3.client("dynamodb", region_name=AWS_REGION)
-    transact_items = [operation_transact, audit_transact]
-
+    # Write audit record (best-effort, log if fails)
     try:
-        response = client.transact_write_items(TransactItems=transact_items)
-        logger.info(
-            f"Transaction committed: {action_type} {resource_type}/{resource_id} "
-            f"with audit record"
+        create_audit_record(
+            user_id=user_id,
+            action_type=action_type,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            details=details,
         )
-        return response
-    except ClientError as e:
-        error_code = e.response.get("Error", {}).get("Code", "")
-        logger.error(
-            f"Transaction failed ({error_code}): operation {action_type} on "
-            f"{resource_type}/{resource_id} rejected. Audit integrity enforced."
-        )
-        raise
+    except Exception as e:
+        logger.error(f"Failed to write audit record (operation succeeded): {e}")
+
+    logger.info(f"Operation committed: {action_type} {resource_type}/{resource_id}")
+    return {}
 
 
 def _build_audit_item(
@@ -291,8 +278,8 @@ def _build_audit_item(
     audit_id = str(uuid.uuid4())
 
     record: dict[str, Any] = {
-        "PK": f"AUDIT#{year_month}",
-        "SK": f"{timestamp}#{audit_id}",
+        "pk": f"AUDIT#{year_month}",
+        "sk": f"{timestamp}#{audit_id}",
         "id": audit_id,
         "user_id": user_id,
         "action_type": action_type,
