@@ -31,18 +31,22 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #020617 0%, #1e1b4b 100%)' }}>
+      {/* Vivid blurred color blobs behind the glass */}
+      <div className="absolute w-[500px] h-[500px] rounded-full opacity-40 -top-24 -left-24" style={{ background: '#9333ea', filter: 'blur(100px)' }} />
+      <div className="absolute w-[500px] h-[500px] rounded-full opacity-40 -bottom-24 -right-24" style={{ background: '#6d28d9', filter: 'blur(100px)' }} />
+
+      <div className="max-w-md w-full space-y-8 relative z-10">
         {/* Logo / Branding */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600/20 rounded-2xl mb-4">
-            <ShieldCheck className="h-8 w-8 text-blue-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 glass-nav-active">
+            <ShieldCheck className="h-8 w-8 text-violet-300" />
           </div>
-          <h1 className="text-3xl font-bold text-white">DQ Platform</h1>
-          <p className="mt-2 text-gray-400">Data Quality Management System</p>
+          <h1 className="text-3xl font-bold text-violet-200">DQ Platform</h1>
+          <p className="mt-2 text-slate-400">Data Quality Management System</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-800 rounded-xl p-8 space-y-6 border border-gray-700">
+        <form onSubmit={handleSubmit} className="glass-sidebar rounded-2xl p-8 space-y-6 shadow-2xl shadow-black/30">
           <h2 className="text-xl font-semibold text-white text-center">Sign In</h2>
 
           {error && (
@@ -58,30 +62,31 @@ export default function Login() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+            <label className="block text-sm font-medium text-slate-300 mb-1">Username</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="user@example.com"
+                autoComplete="username"
+                className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                placeholder="admindatos"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
+            <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                 placeholder="••••••••"
               />
             </div>
@@ -90,7 +95,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:opacity-50 text-white font-medium rounded-lg transition-colors"
+            className="w-full py-2.5 px-4 btn-glass-primary disabled:opacity-50 text-white font-medium rounded-xl transition-opacity"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -102,7 +107,7 @@ export default function Login() {
             )}
           </button>
 
-          <p className="text-center text-xs text-gray-500">
+          <p className="text-center text-xs text-slate-500">
             Protected by AWS Cognito with MFA
           </p>
         </form>
