@@ -1,143 +1,107 @@
-import { useState } from 'react'
-import { Plus, FileText, Eye, Edit3, Send, Download } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { marked } from 'marked'
+import api from '../services/api'
 
-interface Report {
+interface CatalogOption {
   id: string
   name: string
-  type: string
-  created: string
-  status: 'Generated' | 'Draft' | 'Published'
 }
 
 export default function Reports() {
-  const [reports] = useState<Report[]>([
-    { id: '1', name: 'Weekly Quality Summary', type: 'Scheduled', created: '2025-01-15', status: 'Published' },
-    { id: '2', name: 'Anomaly Report - January', type: 'On-demand', created: '2025-01-14', status: 'Generated' },
-    { id: '3', name: 'Cleaning Impact Analysis', type: 'On-demand', created: '2025-01-13', status: 'Draft' },
-  ])
-  const [selectedReport, setSelectedReport] = useState<Report | null>(null)
-  const [showEditor, setShowEditor] = useState(false)
+  const [catalogs, setCatalogs] = useState<CatalogOption[]>([])
+  const [selectedCatalog, setSelectedCatalog] = useState('')
+  const [generating, setGenerating] = useState(false)
+  const [reportHtml, setReportHtml] = useState('')
+  const [reportMeta, setReportMeta] = useState<{ catalogName: string; generatedAt: string } | null>(null)
+  const [error, setError] = useState('')
 
-  const reportContent = `# Weekly Quality Summary
-**Period:** January 8 - January 15, 2025
+  useEffect(() => {
+    api.get('/catalog', { params: { limit: 50 } }).then(res => {
+      setCatalogs((res.data?.items || []).map((c: any) => ({ id: c.id, name: c.name })))
+    }).catch(() => {})
+  }, [])
 
-## Executive Summary
-Overall data quality score improved by **3.2%** this week, reaching **87%** across all monitored datasets.
+  const handleGenerate = async () => {
+    if (!selectedCatalog) return
+    setGenerating(true)
+    setError('')
+    setReportHtml('')
+    setReportMeta(null)
 
-## Key Metrics
-| Metric | This Week | Last Week | Change |
-|--------|-----------|-----------|--------|
-| Quality Score | 87% | 84% | +3.2% |
-| Anomalies | 47 | 62 | -24.2% |
-| Rules Passed | 89% | 85% | +4.7% |
-| Cleaning Jobs | 12 | 8 | +50% |
-
-## Highlights
-- \`customers.csv\` quality improved after automated cleaning
-- New format validation rules reduced email anomalies by 40%
-- ML model retrained with 15% lower false positive rate
-
-## Code Example
-\`\`\`python
-# Quality score calculation
-def calculate_score(passed: int, total: int) -> float:
-    return (passed / total) * 100 if total > 0 else 0.0
-\`\`\`
-
-## Recommendations
-1. Increase validation frequency for \`orders.csv\`
-2. Review range constraints on \`user.age\` field
-3. Schedule weekly cleaning for all production datasets
-`
+    try {
+      const res = await api.post('/reports/generate', { catalogId: selectedCatalog })
+      const md = res.data?.report || ''
+      const html = marked(md) as string
+      setReportHtml(html)
+      setReportMeta({
+        catalogName: res.data?.catalogName || '',
+        generatedAt: res.data?.generatedAt || '',
+      })
+    } catch (err: any) {
+      setError(err?.response?.data?.error || err?.message || 'Error generando reporte')
+    } finally {
+      setGenerating(false)
+    }
+  }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Reports</h1>
-          <p className="text-gray-400 text-sm mt-1">Generate, edit, and publish quality reports</p>
-        </div>
-        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          New Report
-        </button>
-      </div>
+    <div className="p-6">
+      <h1 className="text-xl font-semibold text-gray-800 mb-1">Reportes</h1>
+      <p className="text-sm text-gray-500 mb-6">Genera reportes ejecutivos de calidad con IA</p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Report List */}
-        <div className="space-y-3">
-          {reports.map((report) => (
-            <div
-              key={report.id}
-              onClick={() => { setSelectedReport(report); setShowEditor(true) }}
-              className={`bg-gray-800 rounded-xl border p-4 cursor-pointer transition-colors ${
-                selectedReport?.id === report.id ? 'border-blue-500 bg-blue-900/10' : 'border-gray-700 hover:border-gray-600'
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                <FileText className="h-5 w-5 text-gray-400 mt-0.5" />
-                <div className="flex-1">
-                  <h3 className="text-sm text-white font-medium">{report.name}</h3>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-gray-400">{report.type}</span>
-                    <span className="text-xs text-gray-600">•</span>
-                    <span className="text-xs text-gray-400">{report.created}</span>
-                  </div>
-                  <span className={`inline-block mt-2 px-2 py-0.5 rounded text-xs ${
-                    report.status === 'Published' ? 'bg-green-900/30 text-green-300' :
-                    report.status === 'Generated' ? 'bg-blue-900/30 text-blue-300' :
-                    'bg-yellow-900/30 text-yellow-300'
-                  }`}>
-                    {report.status}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Report Viewer/Editor */}
-        <div className="lg:col-span-2">
-          {showEditor && selectedReport ? (
-            <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-              {/* Toolbar */}
-              <div className="flex items-center justify-between px-6 py-3 border-b border-gray-700">
-                <h3 className="text-sm font-medium text-white">{selectedReport.name}</h3>
-                <div className="flex items-center gap-2">
-                  <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
-                    <Eye className="h-4 w-4" />
-                  </button>
-                  <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
-                    <Edit3 className="h-4 w-4" />
-                  </button>
-                  <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
-                    <Download className="h-4 w-4" />
-                  </button>
-                  <button className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
-                    <Send className="h-3 w-3" />
-                    Publish
-                  </button>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 overflow-y-auto max-h-[600px]">
-                <div className="prose prose-invert prose-sm max-w-none">
-                  <pre className="whitespace-pre-wrap text-sm text-gray-300 leading-relaxed font-sans">
-                    {reportContent}
-                  </pre>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-gray-800 rounded-xl border border-gray-700 p-12 flex flex-col items-center justify-center text-center">
-              <FileText className="h-12 w-12 text-gray-600 mb-4" />
-              <p className="text-gray-400">Select a report to view or edit</p>
-              <p className="text-sm text-gray-500 mt-1">Click on any report from the list</p>
-            </div>
-          )}
+      {/* Controls */}
+      <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-4 mb-4">
+        <div className="flex items-end gap-3">
+          <div className="flex-1">
+            <label className="block text-xs text-gray-600 mb-1">Catálogo</label>
+            <select value={selectedCatalog} onChange={(e) => setSelectedCatalog(e.target.value)}
+              className="w-full px-3 py-2 bg-white/60 border border-white/80 rounded-xl text-sm">
+              <option value="">Seleccionar catálogo...</option>
+              {catalogs.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+          </div>
+          <button onClick={handleGenerate} disabled={generating || !selectedCatalog}
+            className="px-4 py-2 btn-glass-primary text-white text-sm rounded-xl disabled:opacity-40">
+            {generating ? 'Generando...' : 'Generar Reporte'}
+          </button>
         </div>
       </div>
+
+      {error && <div className="bg-red-50 border border-red-300 text-red-800 text-sm p-3 rounded-xl mb-4">{error}</div>}
+
+      {/* Report rendered as HTML */}
+      {reportHtml && reportMeta && (
+        <div className="glass-card rounded-2xl shadow-lg shadow-black/5 overflow-hidden">
+          <div className="px-5 py-3 border-b border-white/40 bg-white/20 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-800">{reportMeta.catalogName}</p>
+              <p className="text-xs text-gray-500">{reportMeta.generatedAt}</p>
+            </div>
+            <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">Generado</span>
+          </div>
+          <div
+            className="p-6 prose prose-sm max-w-none
+              prose-headings:text-gray-900 prose-headings:font-semibold
+              prose-h1:text-lg prose-h1:border-b prose-h1:border-gray-200 prose-h1:pb-2
+              prose-h2:text-base prose-h2:mt-6 prose-h2:mb-2
+              prose-h3:text-sm
+              prose-p:text-gray-700 prose-p:leading-relaxed
+              prose-li:text-gray-700
+              prose-strong:text-gray-900
+              prose-table:border-collapse prose-table:w-full
+              prose-th:bg-gray-100 prose-th:border prose-th:border-gray-300 prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:text-xs prose-th:font-medium prose-th:text-gray-600
+              prose-td:border prose-td:border-gray-200 prose-td:px-3 prose-td:py-2 prose-td:text-sm
+              prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-sm"
+            dangerouslySetInnerHTML={{ __html: reportHtml }}
+          />
+        </div>
+      )}
+
+      {!reportHtml && !generating && (
+        <div className="glass-card rounded-2xl shadow-lg shadow-black/5 p-10 text-center text-gray-400 text-sm">
+          Selecciona un catálogo y genera un reporte
+        </div>
+      )}
     </div>
   )
 }
