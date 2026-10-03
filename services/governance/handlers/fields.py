@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -162,12 +162,12 @@ def _create_field(
             request_id=request_id,
         )
 
-    field_id = str(ulid.new())
+    field_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     item = {
-        "PK": f"TABLE#{table_id}",
-        "SK": f"FIELD#{field_id}",
+        "pk": f"TABLE#{table_id}",
+        "sk": f"FIELD#{field_id}",
         "id": field_id,
         "table_id": table_id,
         "name": name,
@@ -278,7 +278,7 @@ def _list_fields(
 
     result = db.query(
         pk_value=f"TABLE#{table_id}",
-        sk_condition=Key("SK").begins_with("FIELD#"),
+        sk_condition=Key("sk").begins_with("FIELD#"),
         pagination=pagination,
     )
 
@@ -431,7 +431,7 @@ def _delete_field(
         )
 
     # Delete with audit
-    delete_key = {"PK": f"TABLE#{table_id}", "SK": f"FIELD#{field_id}"}
+    delete_key = {"pk": f"TABLE#{table_id}", "sk": f"FIELD#{field_id}"}
     try:
         write_with_audit(
             operation_item=delete_key,
