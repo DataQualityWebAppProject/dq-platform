@@ -19,7 +19,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -149,7 +149,7 @@ def _list_reports(event: dict[str, Any], request_id: str) -> dict[str, Any]:
 
     db = DynamoHelper(REPORTS_TABLE)
 
-    filter_expr = Attr("SK").eq("METADATA")
+    filter_expr = Attr("sk").eq("METADATA")
     if filter_status:
         filter_expr = filter_expr & Attr("status").eq(filter_status)
 
@@ -298,8 +298,8 @@ def _update_report(
 
         # Store version entry
         version_item = {
-            "PK": f"REPORT#{report_id}",
-            "SK": f"VERSION#{new_version}",
+            "pk": f"REPORT#{report_id}",
+            "sk": f"VERSION#{new_version}",
             "version": new_version,
             "content": content or item.get("content"),
             "title": title or item.get("title"),
@@ -433,7 +433,7 @@ def _get_versions(
     # Query all VERSION# entries
     result = db.query(
         pk_value=f"REPORT#{report_id}",
-        sk_condition=Key("SK").begins_with("VERSION#"),
+        sk_condition=Key("sk").begins_with("VERSION#"),
         scan_forward=False,  # Most recent first
     )
 
