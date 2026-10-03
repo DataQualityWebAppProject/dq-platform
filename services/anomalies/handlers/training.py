@@ -18,7 +18,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -167,12 +167,12 @@ def _launch_training(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Create training job record
-    training_id = str(ulid.new())
+    training_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     training_item = {
-        "PK": f"TRAINING#{training_id}",
-        "SK": "METADATA",
+        "pk": f"TRAINING#{training_id}",
+        "sk": "METADATA",
         "id": training_id,
         "datasetId": dataset_id,
         "datasetS3Path": dataset_s3_path,
