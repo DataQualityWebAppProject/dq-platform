@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import ulid
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -199,13 +199,13 @@ def _create_rule(event: dict[str, Any], request_id: str) -> dict[str, Any]:
         )
 
     # Build rule item
-    rule_id = str(ulid.new())
+    rule_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
     scope = body["scope"]
 
     rule_item: dict[str, Any] = {
-        "PK": f"RULE#{rule_id}",
-        "SK": "METADATA",
+        "pk": f"RULE#{rule_id}",
+        "sk": "METADATA",
         "id": rule_id,
         "scope": scope,
         "catalogId": body["catalogId"],
@@ -413,7 +413,7 @@ def _list_rules(event: dict[str, Any], request_id: str) -> dict[str, Any]:
     # Build filter expression
     from boto3.dynamodb.conditions import Attr
 
-    filter_expr = Attr("SK").eq("METADATA")
+    filter_expr = Attr("sk").eq("METADATA")
 
     if filter_scope and filter_scope in VALID_SCOPES:
         filter_expr = filter_expr & Attr("scope").eq(filter_scope)
@@ -625,8 +625,8 @@ def _delete_rule(
 
     # Delete with audit
     delete_key = {
-        "PK": f"RULE#{rule_id}",
-        "SK": "METADATA",
+        "pk": f"RULE#{rule_id}",
+        "sk": "METADATA",
     }
 
     try:
