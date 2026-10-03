@@ -1,1 +1,0 @@
-"""Validation Glue job scripts."""

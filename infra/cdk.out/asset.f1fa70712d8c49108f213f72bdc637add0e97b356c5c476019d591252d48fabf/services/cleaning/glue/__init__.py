@@ -1,1 +1,0 @@
-"""Cleaning Glue job scripts."""

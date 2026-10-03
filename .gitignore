@@ -8,3 +8,15 @@ cdk.out/
 *.egg-info/
 .pytest_cache/
 dq-platform-key.pem
+.superdesign
+
+# Secrets / credentials — never commit
+*.pem
+bedrock-policy.json
+ec2-full-policy.json
+s3-write-policy.json
+ec2-dynamo-policy.json
+
+# Build artifacts
+frontend/tsconfig.tsbuildinfo
+
